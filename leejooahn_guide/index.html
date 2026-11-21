@@ -1,0 +1,1454 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>李周安 HIAND 指南</title>
+    <!-- Google Fonts & Font Awesome Icons -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700;800&family=Pretendard:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --bg-dark: #0f1419;
+            --bg-card: #182026;
+            --bg-card-hover: #222d36;
+            --accent-green: #10b981;
+            --accent-emerald: #059669;
+            --accent-gold: #fbbf24;
+            --text-main: #f3f4f6;
+            --text-muted: #9ca3af;
+            --border-color: rgba(255, 255, 255, 0.1);
+            --glass-bg: rgba(24, 32, 38, 0.88);
+        }
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Pretendard', 'Noto Sans KR', sans-serif;
+            -webkit-font-smoothing: antialiased;
+            -webkit-tap-highlight-color: transparent;
+        }
+        body {
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+            line-height: 1.6;
+            margin: 0;
+            padding-bottom: 0 !important;
+            word-break: keep-all;
+        }
+        /* 主视觉区域 */
+        .hero {
+            position: relative;
+            background: linear-gradient(180deg, rgba(15, 20, 25, 0.5) 0%, var(--bg-dark) 100%),
+                        radial-gradient(circle at 50% 20%, rgba(16, 185, 129, 0.2) 0%, transparent 70%);
+            padding: 2.2rem 1rem 1.6rem;
+            text-align: center;
+            border-bottom: 1px solid var(--border-color);
+        }
+        .hero-container {
+            max-width: 800px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .main-slogan {
+            font-size: 1.05rem;
+            font-weight: 800;
+            color: var(--accent-gold);
+            background: rgba(251, 191, 36, 0.12);
+            padding: 7px 18px;
+            border-radius: 20px;
+            border: 1px solid rgba(251, 191, 36, 0.35);
+            margin-bottom: 1.2rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            letter-spacing: -0.3px;
+            box-shadow: 0 4px 15px rgba(251, 191, 36, 0.1);
+        }
+        .profile-img-wrapper {
+            position: relative;
+            width: 140px;
+            height: 140px;
+            border-radius: 50%;
+            padding: 4px;
+            background: linear-gradient(135deg, var(--accent-green), var(--accent-gold));
+            box-shadow: 0 10px 25px rgba(16, 185, 129, 0.35);
+            margin-bottom: 1rem;
+        }
+        .profile-img {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            object-fit: cover;
+            background-color: #2a343d;
+            display: block;
+        }
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: rgba(16, 185, 129, 0.15);
+            color: var(--accent-green);
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.82rem;
+            font-weight: 600;
+            border: 1px solid rgba(16, 185, 129, 0.3);
+            margin-bottom: 0.5rem;
+        }
+        .hero h1 {
+            font-size: 2.1rem;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+            margin-bottom: 0.3rem;
+            background: linear-gradient(to right, #ffffff, #d1d5db);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .hero p {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+        .nicknames {
+            margin-top: 0.8rem;
+            display: flex;
+            gap: 6px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        .tag {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--border-color);
+            color: #e5e7eb;
+            padding: 4px 10px;
+            border-radius: 8px;
+            font-size: 0.78rem;
+            font-weight: 500;
+        }
+        /* 导航栏 */
+        .nav-wrapper {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background: var(--glass-bg);
+            backdrop-filter: blur(14px);
+            -webkit-backdrop-filter: blur(14px);
+            border-bottom: 1px solid var(--border-color);
+        }
+        nav {
+            max-width: 800px;
+            margin: 0 auto;
+            display: flex;
+            overflow-x: auto;
+            white-space: nowrap;
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: none;
+        }
+        nav::-webkit-scrollbar {
+            display: none;
+        }
+        .tab-btn {
+            flex: 0 0 auto;
+            background: none;
+            border: none;
+            padding: 1rem 1.1rem;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+        }
+        .tab-btn:hover {
+            color: var(--text-main);
+        }
+        .tab-btn.active {
+            color: var(--accent-green);
+        }
+        .tab-btn.active::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 15%;
+            width: 70%;
+            height: 3px;
+            background-color: var(--accent-green);
+            border-radius: 3px 3px 0 0;
+            box-shadow: 0 0 10px var(--accent-green);
+        }
+        .container {
+            max-width: 800px;
+            margin: 1.5rem auto;
+            padding: 0 1rem;
+        }
+        .tab-content {
+            display: none;
+            animation: fadeIn 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .tab-content.active {
+            display: block;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(8px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .card {
+            background-color: var(--bg-card);
+            border-radius: 16px;
+            padding: 1.4rem;
+            margin-bottom: 1.2rem;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+        }
+        .card-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 1.2rem;
+            padding-bottom: 0.8rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+        .card-header i {
+            color: var(--accent-green);
+            font-size: 1.15rem;
+        }
+        .card-header h2 {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: #ffffff;
+        }
+        /* 网格与徽章 */
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 0.8rem;
+        }
+        .info-box {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--border-color);
+            padding: 0.9rem;
+            border-radius: 12px;
+        }
+        .info-label {
+            font-size: 0.78rem;
+            color: var(--text-muted);
+            margin-bottom: 0.2rem;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .info-value {
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: #ffffff;
+        }
+        .lifestyle-section {
+            display: flex;
+            flex-direction: column;
+            gap: 1.2rem;
+        }
+        .lifestyle-group {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 1rem;
+        }
+        .group-title {
+            font-size: 0.9rem;
+            font-weight: 700;
+            color: var(--accent-green);
+            margin-bottom: 0.8rem;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .pill-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+        .pill-badge {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            border-radius: 8px;
+            padding: 6px 12px;
+            font-size: 0.88rem;
+            color: #e5e7eb;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .pill-badge strong {
+            color: var(--accent-gold);
+        }
+        /* 特别卡片 & FAQ */
+        .special-card {
+            background: linear-gradient(135deg, rgba(16, 185, 129, 0.15) 0%, rgba(24, 32, 38, 0.95) 100%);
+            border: 1px solid rgba(16, 185, 129, 0.4);
+            border-radius: 16px;
+            padding: 1.4rem;
+            margin-bottom: 1.2rem;
+            position: relative;
+        }
+        .time-badge {
+            position: absolute;
+            top: 1.1rem;
+            right: 1.1rem;
+            background: rgba(16, 185, 129, 0.2);
+            color: var(--accent-green);
+            font-size: 0.75rem;
+            font-weight: 700;
+            padding: 4px 10px;
+            border-radius: 12px;
+            border: 1px solid rgba(16, 185, 129, 0.3);
+        }
+        .search-box {
+            position: relative;
+            margin-bottom: 1rem;
+        }
+        .search-box input {
+            width: 100%;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--border-color);
+            padding: 0.8rem 1rem 0.8rem 2.6rem;
+            border-radius: 12px;
+            color: white;
+            font-size: 0.9rem;
+            outline: none;
+            transition: all 0.2s ease;
+        }
+        .search-box input:focus {
+            border-color: var(--accent-green);
+            background: rgba(255, 255, 255, 0.08);
+        }
+        .search-box i {
+            position: absolute;
+            left: 0.9rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-muted);
+        }
+        .faq-list {
+            display: flex;
+            flex-direction: column;
+            gap: 0.7rem;
+        }
+        .faq-item {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            overflow: hidden;
+        }
+        .faq-question {
+            padding: 1rem 1.1rem;
+            font-weight: 600;
+            font-size: 0.93rem;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: #ffffff;
+            user-select: none;
+        }
+        .faq-question i {
+            color: var(--text-muted);
+            transition: transform 0.3s ease;
+        }
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.35s ease, padding 0.35s ease;
+            background: rgba(0, 0, 0, 0.2);
+            color: #d1d5db;
+            font-size: 0.88rem;
+            line-height: 1.65;
+            padding: 0 1.1rem;
+            white-space: pre-line;
+        }
+        .faq-item.open .faq-question i {
+            transform: rotate(180deg);
+            color: var(--accent-green);
+        }
+        .faq-item.open .faq-answer {
+            max-height: 500px;
+            padding: 0.9rem 1.1rem 1.1rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        /* 画廊 & 表格 & 视频 */
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+            gap: 0.8rem;
+            margin-top: 0.8rem;
+        }
+        .gallery-card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 2.5rem 1rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-muted);
+            font-size: 0.82rem;
+        }
+        .gallery-card i {
+            font-size: 2rem;
+            margin-bottom: 0.6rem;
+        }
+        .table-container {
+            overflow-x: auto;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            text-align: left;
+            font-size: 0.88rem;
+        }
+        th {
+            background: rgba(255, 255, 255, 0.05);
+            color: var(--text-muted);
+            font-weight: 600;
+            padding: 0.75rem 0.8rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+        td {
+            padding: 0.85rem 0.8rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            color: #e5e7eb;
+        }
+        .role-badge {
+            display: inline-block;
+            font-size: 0.72rem;
+            padding: 2px 6px;
+            border-radius: 4px;
+            background: rgba(255, 255, 255, 0.1);
+            color: #d1d5db;
+        }
+        .role-badge.main {
+            background: rgba(16, 185, 129, 0.2);
+            color: var(--accent-green);
+        }
+        .video-card-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 1rem;
+        }
+        .video-card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--border-color);
+            border-radius: 14px;
+            padding: 1.2rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        .video-title {
+            font-weight: 700;
+            font-size: 0.98rem;
+            margin-bottom: 0.8rem;
+            color: #ffffff;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .video-title i {
+            color: #ef4444;
+        }
+        .video-links {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+        }
+        .video-btn {
+            background: rgba(255, 255, 255, 0.06);
+            color: #e5e7eb;
+            text-decoration: none;
+            padding: 6px 12px;
+            border-radius: 8px;
+            font-size: 0.8rem;
+            font-weight: 500;
+            border: 1px solid var(--border-color);
+            transition: all 0.2s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+        }
+        .video-btn:hover {
+            background: var(--accent-green);
+            color: #000000;
+            font-weight: 700;
+            border-color: var(--accent-green);
+        }
+        @media (max-width: 640px) {
+            .hero { padding: 2rem 1rem 1.4rem; }
+            .hero h1 { font-size: 1.7rem; }
+            .main-slogan { font-size: 0.92rem; padding: 6px 14px; }
+            .profile-img-wrapper { width: 125px; height: 125px; }
+            .card { padding: 1.1rem; }
+            .info-grid { grid-template-columns: 1fr; }
+            .pill-badge { font-size: 0.82rem; padding: 5px 10px; }
+        }
+        
+        html, body {
+            width: 100%;
+            margin: 0 !important;
+            padding: 0 !important;
+        }
+        .container:has(footer) {
+            margin-bottom: 0 !important;
+        }
+        
+        footer {
+            width: 100vw;
+            position: relative;
+            left: 50%;
+            margin: 3rem 0 0 -50vw !important;
+            margin-bottom: 0 !important;
+            padding: 2.5rem 1rem;
+            background-color: #080d11;
+            border-radius: 0 !important;
+            text-align: center;
+            border-top: 1px solid var(--border-color);
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            line-height: 1.6;
+            box-sizing: border-box;
+        }
+        .lifestyle-group-clean .pill-container {
+            display: flex;
+            flex-direction: column;
+            gap: 0;
+        }
+        
+        .lifestyle-group-clean .pill-badge {
+            display: block;
+            width: 100%;
+            padding: 0.9rem 0.2rem;
+            background: transparent;
+            border: none;
+            border-bottom: 1px solid var(--border-color);
+            border-radius: 0;
+            line-height: 1.6;
+            font-size: 0.95rem;
+            white-space: normal;
+            overflow-wrap: break-word;
+        }
+        
+        .lifestyle-group-clean .pill-badge:last-child {
+            border-bottom: none;
+        }
+        .pill-list-clean {
+            margin-top: 1rem;
+            border-top: 1px solid var(--border-color);
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .pill-list-clean .pill-badge {
+            display: block;
+            width: 100%;
+            padding: 0.9rem 0.2rem;
+            background: transparent;
+            border: none;
+            border-bottom: 1px solid var(--border-color);
+            border-radius: 0;
+            line-height: 1.6;
+            font-size: 0.95rem;
+            white-space: normal;
+            overflow-wrap: break-word;
+        }
+        
+        .pill-list-clean .pill-badge:last-child {
+            border-bottom: none;
+        }
+        /* 意见发送按钮 */
+        #feedbackButton {
+            position: fixed;
+            right: 24px;
+            bottom: 24px;
+            z-index: 9999;
+            padding: 14px 22px;
+            border: none;
+            border-radius: 30px;
+            background: #333333;
+            color: white;
+            font-size: 15px;
+            font-weight: bold;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+        }
+        
+        /* 意见填写窗口背景 */
+        #feedbackModal {
+            display: none;
+            position: fixed;
+            inset: 0;
+            z-index: 10000;
+            background: rgba(0, 0, 0, 0.5);
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        
+        /* 意见填写窗口主体 */
+        #feedbackModal .feedback-box {
+            width: 100%;
+            max-width: 420px;
+            padding: 28px;
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
+        }
+        
+        /* 标题 */
+        #feedbackModal h3 {
+            margin-top: 0;
+            font-size: 21px;
+            color: #222222;
+        }
+        
+        /* 提示文字 */
+        #feedbackModal p {
+            font-size: 14px;
+            color: #666666;
+        }
+        
+        /* 意见输入框 */
+        #feedbackMessage {
+            width: 100%;
+            min-height: 150px;
+            box-sizing: border-box;
+            padding: 12px;
+            margin-top: 12px;
+            border: 1px solid #dddddd;
+            border-radius: 8px;
+            font-size: 14px;
+            resize: vertical;
+            color: #333333;
+            background: #ffffff;
+        }
+        
+        /* 底部按钮区域 */
+        #feedbackModal .feedback-actions {
+            display: flex;
+            justify-content: flex-end;
+            gap: 8px;
+            margin-top: 16px;
+        }
+        
+        /* 关闭 / 发送按钮 */
+        #feedbackModal .feedback-actions button {
+            padding: 10px 18px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+        
+        /* 关闭按钮 */
+        #feedbackClose {
+            background: #eeeeee;
+            color: #333333;
+        }
+        
+        /* 发送按钮 */
+        #feedbackSubmit {
+            background: #333333;
+            color: white;
+        }
+        
+        /* 发送状态文字 */
+        #feedbackStatus {
+            margin-top: 16px;
+            margin-bottom: 0;
+            text-align: right;
+            min-height: 20px;
+        }
+        #feedbackMessage::placeholder {
+            color: #999999;
+        }
+        /* 首次访问提示弹窗背景 */
+        #noticeModal {
+            display: none;
+            position: fixed;
+            inset: 0;
+            z-index: 20000;
+            background: rgba(0, 0, 0, 0.6);
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        
+        /* 弹窗主体 */
+        #noticeModal .notice-box {
+            width: 100%;
+            max-width: 420px;
+            padding: 30px;
+            background: #ffffff;
+            border-radius: 16px;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.25);
+            text-align: center;
+            color: #222222;
+        }
+        
+        /* 弹窗标题 */
+        #noticeModal h2 {
+            margin-top: 0;
+            font-size: 22px;
+            color: #222222;
+        }
+        
+        /* 弹窗内容 */
+        #noticeModal p {
+            color: #666666;
+            font-size: 15px;
+            line-height: 1.8;
+        }
+        
+        /* 弹窗按钮区域 */
+        #noticeModal .notice-actions {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 24px;
+        }
+        
+        /* 弹窗按钮通用 */
+        #noticeModal .notice-actions button {
+            padding: 11px 18px;
+            border: none;
+            border-radius: 8px;
+            font-size: 14px;
+            cursor: pointer;
+        }
+        
+        /* 关闭 */
+        #noticeClose {
+            background: #eeeeee;
+            color: #333333;
+        }
+        
+        /* 今日不再显示 */
+        #noticeTodayClose {
+            background: #333333;
+            color: #ffffff;
+        }
+    </style>
+</head>
+<body>
+    <header class="hero">
+        <div class="hero-container">
+            <div class="hero-badge notranslate">
+                <i class="fa-solid fa-sparkles"></i> HIAND Guide
+            </div>
+            <div class="profile-img-wrapper">
+                <img src="profile.jpeg" id="actorPhoto" alt="李周安 演员" class="profile-img" onerror="this.onerror=null; this.src='https://placehold.co/200x200/182026/10b981?text=%EC%9D%B4%EC%A3%BC%EC%95%88';">
+            </div>
+            <h1>李周安</h1>
+            <p>1996.01.24 | 演员 | <span class="notranslate">ENFP</span></p>
+            
+            <div class="nicknames notranslate">
+                <span class="tag">#좐득이（周安粉）</span>
+                <span class="tag">#좐걸（周安girl）</span>
+                <span class="tag">#공길이（孔吉）</span>
+                <span class="tag">#한태승（韩泰胜）</span>
+            </div>
+        </div>
+    </header>
+    <div class="nav-wrapper">
+        <nav>
+            <button class="tab-btn active" onclick="switchTab('profile', this)">
+                <i class="fa-solid fa-user"></i> 演员简介
+            </button>
+            <button class="tab-btn" onclick="switchTab('faq', this)">
+                <i class="fa-solid fa-comments"></i> High End 问答
+            </button>
+            <button class="tab-btn" onclick="switchTab('photos', this)">
+                <i class="fa-solid fa-image"></i> 照片下载
+            </button>
+            <button class="tab-btn" onclick="switchTab('works', this)">
+                <i class="fa-solid fa-clapperboard"></i> 出演作品
+            </button>
+            <button class="tab-btn" onclick="switchTab('videos', this)">
+                <i class="fa-brands fa-youtube"></i> 推荐内容
+            </button>
+        </nav>
+    </div>
+    <div class="container">
+        <!-- 标签页 1: 演员简介 -->
+        <div id="profile" class="tab-content active">
+            <div class="card">
+                <div class="card-header">
+                    <i class="fa-solid fa-address-card"></i>
+                    <h2>基本简介</h2>
+                </div>
+                <div class="info-grid">
+                    <div class="info-box">
+                        <div class="info-label"><i class="fa-solid fa-signature"></i> 汉字 / 英文</div>
+                        <div class="info-value"><span class="notranslate">李周按 / Lee Joo Ahn</span><br>
+                            <span style="font-size: 0.82rem; color: #94a3b8; font-weight: normal;">寓意“周周到到地生活”</span>
+                        </div>
+                    </div>
+                    <div class="info-box">
+                        <div class="info-label"><i class="fa-solid fa-cake-candles"></i> 出生日期</div>
+                        <div class="info-value">1996年1月24日</div>
+                    </div>
+                    <div class="info-box">
+                        <div class="info-label"><i class="fa-solid fa-ruler-vertical"></i> 身高 / 血型</div>
+                        <div class="info-value">183.9cm / A型</div>
+                    </div>
+                    <div class="info-box">
+                        <div class="info-label"><i class="fa-regular fa-hand"></i> 手的大小</div>
+                        <div class="info-value">约20cm
+                            <span style="font-size: 0.82rem; color: #94a3b8; font-weight: normal;">右撇子</span>
+                        </div>
+                    </div>
+                    <div class="info-box">
+                        <div class="info-label"><i class="fa-solid fa-glasses"></i> 视力</div>
+                        <div class="info-value">左 2.0 | 右 1.3</div>
+                    </div>
+                    <div class="info-box">
+                        <div class="info-label"><i class="fa-solid fa-film"></i> 出道作品</div>
+                        <div class="info-value">2018年 <span class="notranslate">JTBC《SKY Castle 天空之城》</span>（饰 李东民）</div>
+                    </div>
+                    <div class="info-box">
+                        <div class="info-label"><i class="fa-solid fa-location-dot"></i> 故乡</div>
+                        <div class="info-value">梁山<br>
+                            <span style="font-size: 0.82rem; color: #94a3b8; font-weight: normal;">18岁时为学表演转学至蔚山</span>
+                        </div>
+                    </div>
+                    <div class="info-box">
+                        <div class="info-label"><i class="fa-solid fa-graduation-cap"></i> 学历</div>
+                        <div class="info-value">檀国大学 表演电影学部</div>
+                    </div>
+                </div>
+            </div>
+            <!-- 生活方式 & 偏好指南 -->
+            <div class="card">
+                <div class="card-header">
+                    <i class="fa-solid fa-heart"></i>
+                    <h2>生活方式 &amp; 偏好指南</h2>
+                </div>
+                <div class="lifestyle-section">
+                    
+                    <div class="lifestyle-group">
+                        <div class="group-title"><i class="fa-solid fa-dumbbell"></i> 兴趣 &amp; 特长</div>
+                        <div class="pill-container">
+                            <span class="pill-badge">🏋️ 健身</span>
+                            <span class="pill-badge">🤸 杂技</span>
+                            <span class="pill-badge">🏕️ 偏好野营</span>
+                            <span class="pill-badge">🎹 钢琴（最近在学爵士）</span>
+                            <span class="pill-badge">🇯🇵 日语（第2年 / 日常会话水平）</span>
+                        </div>
+                    </div>
+                    <div class="lifestyle-group">
+                        <div class="group-title"><i class="fa-solid fa-mobile-screen"></i> 电子设备 &amp; 相机</div>
+                        <div class="pill-container">
+                            <span class="pill-badge">📱 <strong>iPhone 13 粉色</strong>（电池效率 76%）</span>
+                            <span class="pill-badge">🎧 Bang &amp; Olufsen 耳机</span>
+                            <span class="pill-badge">📷 索尼相机</span>
+                            <span class="pill-badge">📹 三洋 Xacti 相机</span>
+                            <span class="pill-badge">📻 Klipsch The Sevens | B&amp;O Explorer | Marshall Kilburn II</span>
+                        </div>
+                    </div>
+                    <div class="lifestyle-group">
+                        <div class="group-title"><i class="fa-solid fa-utensils"></i> 食物 &amp; 甜点偏好</div>
+                        <div class="pill-container">
+                            <span class="pill-badge">🥟 <strong>最爱：饺子！</strong>（不限蒸饺种类 / 最多30个）</span>
+                            <span class="pill-badge">☕ 冰美式</span>
+                            <span class="pill-badge">🍧 <span class="notranslate">Tank Boy</span>（冰淇淋）</span>
+                            <span class="pill-badge">🌿 薄荷巧克力（有的话会吃）</span>
+                            <span class="pill-badge" style="opacity: 0.75;">🙅‍♂️ 炒年糕/甜点（不太喜欢）</span>
+                            <span class="pill-badge" style="border-color: rgba(239,68,68,0.4); color: #fca5a5;">🚫 辣的食物<br>（辛拉面也不行，麻辣的辣味可以接受）</span>
+                            <span class="pill-badge" style="border-color: rgba(239,68,68,0.4); color: #fca5a5;">🚫 蚕蛹（唯一不能吃的）</span>
+                        </div>
+                        <div class="pill-list-clean">
+                            <div class="group-title"><i class="fa-solid fa-utensils"></i> 更偏好的饮食口味</div>
+                            <span class="pill-badge">
+                                🥟 <b>煎饺⭐</b> vs 点心<br>
+                                🍽️ 炸猪排：<b>黄芥末⭐</b> vs 山葵<br>
+                                🧂 米肠：<b>包饭酱⭐</b> vs 盐<br>
+                                🐟 生鱼片：醋辣酱 vs <b>大酱⭐</b><br>
+                                🍲 泡菜汤 vs <b>大酱汤⭐</b><br>
+                                🍲 <b>泥鳅汤⭐</b> vs 清麴酱<br>
+                                🐟 <b>鳗鱼⭐</b> vs 金枪鱼
+                            </span>
+                        </div>
+                    </div>
+                    <div class="lifestyle-group">
+                        <div class="group-title"><i class="fa-solid fa-spray-can"></i> 香水</div>
+                        <div class="pill-container">
+                            <span class="pill-badge">✨ <span class="notranslate">Diptyque Do Son（蒂普提克 杜桑）</span></span>
+                            <span class="pill-badge">✨ <span class="notranslate">Le Labo Santal 33（勒莱柏 檀香33）</span></span>
+                            <span class="pill-badge">✨ <span class="notranslate">Acqua di Parma Mirto（帕尔玛之水 桃金娘）</span></span>
+                        </div>
+                    </div>
+                    <div class="lifestyle-group lifestyle-group-clean">
+                        <div class="group-title"><i class="fa-solid fa-layer-group"></i> 其他 &amp; 特别事项</div>
+                        <div class="pill-container">
+                            <span class="pill-badge">🍜 本身不太喜欢拉面，但拌面吃得比谁都快</span>
+                            <span class="pill-badge">🍪 从没自己花钱买过零食（但放在眼前就会吃）</span>
+                            <span class="pill-badge">🍱 主要点外卖，偶尔做饭</span>
+                            <span class="pill-badge">🍔 汉堡品牌首选 Burger King 和 Mom's Touch</span>
+                            <span class="pill-badge">🎡 不晕车，但旋转类游乐设施&amp;海盗船类晕得厉害，无法乘坐</span>
+                            <span class="pill-badge">🚘 持有1种普通驾照（一次通过）</span>
+                            <span class="pill-badge">🧙🏻 哈利波特随机学院测试（牙膏渠道）被分到格兰芬多</span>
+                        </div>
+                    </div>    
+                </div>
+            </div>
+        </div>
+        <!-- 标签页 2: High End 问答 -->
+        <div id="faq" class="tab-content">
+            <div class="special-card">
+                <h3 style="color: #ffffff; font-size: 1.1rem; margin-bottom: 0.4rem; display: flex; align-items: center; gap: 8px;">
+                    <i class="fa-solid fa-bell" style="color: var(--accent-gold);"></i> High End 核心文化：“<span class="notranslate">주안시（周安时）</span>”是什么？
+                </h3>
+                <p style="font-size: 0.9rem; color: #d1d5db; line-height: 1.6;">
+                    这是配合李周安演员生日<strong>1月24日</strong>，在周五、六、日<strong>凌晨1点24分</strong>通过High End发送“<span class="notranslate">주안시（周安时）</span>”消息的粉丝参与文化！
+                </p>
+                <div style="margin-top: 0.8rem; background: rgba(0, 0, 0, 0.3); padding: 0.8rem; border-radius: 8px; font-size: 0.82rem; color: #a7f3d0; line-height: 1.6;">
+                    💡 <strong><span class="notranslate">주안시（周安时）</span>小贴士：</strong>演员本人也会亲自参与，并由演员排名和公布！发送消息时加上自己的装饰或标记，方便本人确认！<br>（即使没进排名，演员偶尔也会颁发装饰奖🎁）<br><br>
+                    ※ 下午1点24分不进行活动，<span class="notranslate">주안시</span>后面加“！”会发送失败 ※
+                </div>
+            </div>
+            <div class="search-box">
+                <i class="fa-solid fa-magnifying-glass"></i>
+                <input type="text" id="faqSearch" onkeyup="filterFAQ()" placeholder="搜索好奇的关键词（粉丝名、眼镜等）">
+            </div>
+            <div class="card">
+                <div class="card-header">
+                    <i class="fa-circle-question fa-solid"></i>
+                    <h2>常见问题（FAQ）</h2>
+                </div>
+                <div class="faq-list" id="faqList">
+                    <div class="faq-item">
+                        <div class="faq-question" onclick="toggleFAQ(this)">
+                            <span>Q. 有字数限制或消息发送次数限制吗？</span>
+                            <i class="fa-solid fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer">一次最多可连续发送7条，存在字数限制。<br>
+                        字数会随着加入天数增加！</div>
+                    </div>
+                    <div class="faq-item">
+                        <div class="faq-question" onclick="toggleFAQ(this)">
+                            <span>Q. 周安nim晚上不睡觉吗？</span>
+                            <i class="fa-solid fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer">是的！周安nim在粉丝中是著名的<b>“短睡眠者（Short Sleeper）”</b>。</div>
+                    </div>
+                    <div class="faq-item">
+                        <div class="faq-question" onclick="toggleFAQ(this)">
+                            <span>Q. 粉丝们值得了解的趣事！</span>
+                            <i class="fa-solid fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer">• 发型：长发和短发没有特别偏好，会根据作品角色调整。
+- 大学：充满热情地考了4次才进入檀国大学。
+- 字体：据说连母亲都认证的“烂字”。<b>但是！最近通过抄写练习有了巨大进步。</b>
+- 运动：运动神经很好，但几乎唯一不会的就是游泳。
+- 双眼皮：左眼的双眼皮是减肥时自然形成的！</div>
+                    </div>
+                    <div class="faq-item">
+                        <div class="faq-question" onclick="toggleFAQ(this)">
+                            <span>Q. 有官方粉丝昵称（爱称）吗？</span>
+                            <i class="fa-solid fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer">虽然还没有正式确定，但目前粉丝被称为<b>“<span class="notranslate">좐득이（周安粉）</span>”</b>或<b>“<span class="notranslate">좐걸（周安girl）</span>”</b>！
+（顺便一提，以前拍摄结束后他自己想过并提议过“<span class="notranslate">D-14（디폴틴）</span>”这个名字 😄）</div>
+                    </div>
+                    <div class="faq-item">
+                        <div class="faq-question" onclick="toggleFAQ(this)">
+                            <span>Q. “<span class="notranslate">용아맥 &amp; 똥모다치（龙山IMAX &amp; 屎友）</span>”事件是什么？</span>
+                            <i class="fa-solid fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer">和朋友约好一起去龙山IMAX看《奥德赛》，说“不管谁抢到好座位，另一个人坐烂座位也要一起去”，经过几次尝试终于用取消票抢到了<b>J排好座位</b>！
+一起去的朋友抢票失败，成了“烂座位朋友”，最近在日本旅行时又因为拍照拍得不好，最终得到了<b>“<span class="notranslate">똥모다치（屎友，屎+朋友）</span>”</b>的外号。</div>
+                    </div>
+                    <div class="faq-item">
+                        <div class="faq-question" onclick="toggleFAQ(this)">
+                            <span>Q. 周安nim肚子上的疤痕是怎么来的？</span>
+                            <i class="fa-solid fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer">是20多岁时为健康恶化的母亲做肝移植手术留下的疤痕。
+                            ※ 该内容在<b>《全知干预视角》</b>中也可以确认。<a href="https://youtu.be/3QfLklBugnA?si=YFQVAWOT7LZeJ9RC" target="_blank" rel="noopener noreferrer" style="color: var(--accent-green); text-decoration: underline;">[观看《全知干预视角》视频]</a>
+                        </div>
+                    </div>
+                    <div class="faq-item">
+                        <div class="faq-question" onclick="toggleFAQ(this)">
+                            <span>Q. 视力双眼2.0 / 1.3这么好，为什么还戴眼镜？</span>
+                            <i class="fa-solid fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer">为了保护眼睛以及使用智能设备时<b>防蓝光</b>而佩戴。</div>
+                    </div>
+                    <div class="faq-item">
+                        <div class="faq-question" onclick="toggleFAQ(this)">
+                            <span>Q. 相信八字/鬼神吗？</span>
+                            <i class="fa-solid fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer">属于胆子大的类型，据说“完全不”相信八字/鬼神。</div>
+                    </div>
+                    
+                    <div class="faq-item">
+                        <div class="faq-question" onclick="toggleFAQ(this)">
+                            <span>Q. 听歌用什么App？</span>
+                            <i class="fa-solid fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer">订阅了YouTube Premium，音乐主要在YouTube上听。</div>
+                    </div>
+                    
+                    <div class="faq-item">
+                        <div class="faq-question" onclick="toggleFAQ(this)">
+                            <span>Q. 喜欢玩游戏或看体育比赛吗？</span>
+                            <i class="fa-solid fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer">完全不玩游戏，也不看体育比赛。<br>但是，据说喜欢看<b>YouTube <span class="notranslate">혜안</span>（惠安）</b>和<b><span class="notranslate">우주하마</span>（宇宙河马）</b>当“下饭视频”！</div>
+                    </div>
+                    <div class="faq-item">
+                        <div class="faq-question" onclick="toggleFAQ(this)">
+                            <span>Q. 怎么购物？</span>
+                            <i class="fa-solid fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer">最常用<b>Coupang（火箭配送，Wow会员）</b>。</div>
+                    </div>
+                    <div class="faq-item">
+                        <div class="faq-question" onclick="toggleFAQ(this)">
+                            <span>Q. 除了日语还会其他语言吗？</span>
+                            <i class="fa-solid fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer"><b>英语</b>能听懂一些，<b>其他外语</b>不会。</div>
+                    </div>
+                    <div class="faq-item">
+                        <div class="faq-question" onclick="toggleFAQ(this)">
+                            <span>Q. 了解网络流行语或梗吗？</span>
+                            <i class="fa-solid fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer">大部分都不知道。</div>
+                    </div>
+                    <div class="faq-item">
+                        <div class="faq-question" onclick="toggleFAQ(this)">
+                            <span>Q. 能分享一下唇部护理方法吗？</span>
+                            <i class="fa-solid fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer">没有特别的唇部护理，但<b>睡前会涂润唇膏</b>，这是在High End提到过的！
+                            在High End上传的润唇膏种类有“<span class="notranslate">La Bruket润唇膏、Himalaya、Le Labo、Chanel、Neutrogena Daily、Nutsgerin</span>”，也可以在图片标签页中查看。</div>
+                    </div>
+                    <div class="faq-item">
+                        <div class="faq-question" onclick="toggleFAQ(this)">
+                            <span>Q. 停车票故事是什么？</span>
+                            <i class="fa-solid fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer">去上钢琴课时，为了停车需要在3点抢停车票，但他总是忘记这件事，于是拜托<span class="notranslate">좐걸（周安girl）</span>们提醒他不要忘记的事件（？）。</div>
+                    </div>
+                    <div class="faq-item">
+                        <div class="faq-question" onclick="toggleFAQ(this)">
+                            <span>Q. 想知道戒指尺寸！</span>
+                            <i class="fa-solid fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer"><b>10~11号</b>。
+                        （以26.10.27回复为准）→ 左手无名指11号（5.3cm），拇指17号</div>
+                    </div>
+                    <div class="faq-item">
+                        <div class="faq-question" onclick="toggleFAQ(this)">
+                            <span>Q. “<span class="notranslate">이주앙（李周昂）</span>”事件是什么？</span>
+                            <i class="fa-solid fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer">把High End名字从<span class="notranslate">이주안（李周安）</span>改成<span class="notranslate">이좐（李周安/좐）</span>nim后被抢走了名字，变成了<span class="notranslate">이주앙（李周昂）</span>的事件。
+                        通过公司向High End相关人士请求后，好不容易才改回<span class="notranslate">이주안（李周安）</span>。</div>
+                    </div>
+                    <div class="faq-item">
+                        <div class="faq-question" onclick="toggleFAQ(this)">
+                            <span>Q. 好奇正在使用的加湿器！</span>
+                            <i class="fa-solid fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer">AirMade 加热式自动清洗 The Great 加湿器 2.0。</div>
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+        <!-- 标签页 3: 照片下载 -->
+        <div id="photos" class="tab-content">
+            <div class="card">
+                <div class="card-header">
+                    <i class="fa-solid fa-download"></i>
+                    <h2>照片库</h2>
+                </div>
+                <p style="color: var(--text-muted); font-size: 0.88rem; margin-bottom: 0.8rem;">
+                    High End图片上传空间。
+                </p>
+                <div class="gallery-grid">
+                    <div class="photo-card" style="background: rgba(255, 255, 255, 0.03); border: 1px solid var(--border-color); border-radius: 12px; overflow: hidden; display: flex; flex-direction: column;">
+                        <img src="photo1.jpg" alt="周安 崇拜" style="width: 100%; height: 300px; object-fit: cover; display: block;" onerror="this.onerror=null; this.src='profile.jpg';">
+                        <div style="padding: 0.8rem; display: flex; justify-content: space-between; align-items: center; background: rgba(0,0,0,0.2);">
+                            <span style="font-size: 0.82rem; color: var(--text-muted);" class="notranslate">주안 추앙（周安 崇拜）</span>
+                            <a href="photo1.jpg" download="주안추앙.jpg" class="video-btn" style="padding: 5px 12px; font-size: 0.8rem; background: var(--accent-green); color: #000; font-weight: 700; text-decoration: none; border-radius: 6px;">
+                                <i class="fa-solid fa-download"></i> 下载
+                            </a>
+                        </div>
+                    </div>
+                    
+                    <div class="photo-card" style="background: rgba(255, 255, 255, 0.03); border: 1px solid var(--border-color); border-radius: 12px; overflow: hidden; display: flex; flex-direction: column;">
+                        <img src="photo2.jpg" alt="哎呀 风" style="width: 100%; height: 300px; object-fit: cover; display: block;" onerror="this.onerror=null; this.src='profile.jpg';">
+                        <div style="padding: 0.8rem; display: flex; justify-content: space-between; align-items: center; background: rgba(0,0,0,0.2);">
+                            <span style="font-size: 0.82rem; color: var(--text-muted);">哎呀 风</span>
+                            <a href="photo2.jpg" download="어이쿠 바람.jpg" class="video-btn" style="padding: 5px 12px; font-size: 0.8rem; background: var(--accent-green); color: #000; font-weight: 700; text-decoration: none; border-radius: 6px;">
+                                <i class="fa-solid fa-download"></i> 下载
+                            </a>
+                        </div>
+                    </div>
+                    
+                    <div class="photo-card" style="background: rgba(255, 255, 255, 0.03); border: 1px solid var(--border-color); border-radius: 12px; overflow: hidden; display: flex; flex-direction: column;">
+                        <img src="photo3.jpeg" alt="润唇膏合集" style="width: 100%; height: 300px; object-fit: cover; display: block;" onerror="this.onerror=null; this.src='profile.jpg';">
+                        <div style="padding: 0.8rem; display: flex; justify-content: space-between; align-items: center; background: rgba(0,0,0,0.2);">
+                            <span style="font-size: 0.82rem; color: var(--text-muted);">润唇膏合集</span>
+                            <a href="photo3.jpeg" download="립밤 모음집.jpg" class="video-btn" style="padding: 5px 12px; font-size: 0.8rem; background: var(--accent-green); color: #000; font-weight: 700; text-decoration: none; border-radius: 6px;">
+                                <i class="fa-solid fa-download"></i> 下载
+                            </a>
+                        </div>
+                    </div>
+                    
+                    <div class="gallery-card">
+                        <i class="fa-regular fa-image"></i>
+                        <span>准备中的画廊</span>
+                    </div>
+                    <div class="gallery-card">
+                        <i class="fa-regular fa-image"></i>
+                        <span>准备中的画廊</span>
+                    </div>
+                    
+                    <div class="gallery-card">
+                        <i class="fa-regular fa-image"></i>
+                        <span>准备中的画廊</span>
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+        <!-- 标签页 4: 出演作品 -->
+        <div id="works" class="tab-content">
+            <div class="card">
+                <div class="card-header">
+                    <i class="fa-solid fa-tv"></i>
+                    <h2>电视剧作品</h2>
+                </div>
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>年份</th>
+                                <th>电视台</th>
+                                <th>作品名</th>
+                                <th>角色</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr><td>2018</td><td class="notranslate">JTBC</td><td class="notranslate">SKY Castle 天空之城</td><td>李东民</td></tr>
+                            <tr><td>2019</td><td class="notranslate">OCN</td><td class="notranslate">救救我 2</td><td>高中生</td></tr>
+                            <tr><td>2019</td><td class="notranslate">JTBC</td><td class="notranslate">辅佐官 2</td><td>朴钟硕</td></tr>
+                            <tr><td>2020</td><td class="notranslate">JTBC</td><td class="notranslate">夜宵男女</td><td>-</td></tr>
+                            <tr><td>2020</td><td class="notranslate">tvN</td><td class="notranslate">女神降临</td><td>崔满植</td></tr>
+                            <tr><td>2021</td><td class="notranslate">KBS2</td><td class="notranslate">五月的青春</td><td>刑警1</td></tr>
+                            <tr><td>2024</td><td class="notranslate">KBS2</td><td class="notranslate">幻想恋歌</td><td>河朗</td></tr>
+                            <tr><td>2025</td><td class="notranslate">tvN</td><td class="notranslate">暴君的厨师</td><td>孔吉</td></tr>
+                            <tr><td>2026</td><td class="notranslate">ENA</td><td class="notranslate">给你梦想</td><td>金成武 <span class="role-badge">特别出演</span></td></tr>
+                            <tr><td>2026</td><td class="notranslate">KBS2</td><td class="notranslate">不是你的恋爱</td><td>韩泰胜 <span class="role-badge main">主演</span></td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-header">
+                    <i class="fa-solid fa-headset"></i>
+                    <h2>综艺及教养节目</h2>
+                </div>
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>年份</th>
+                                <th>电视台</th>
+                                <th>节目名</th>
+                                <th>备注</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr><td>2023</td><td class="notranslate">MBC every1</td><td class="notranslate">魔法灯</td><td>首个单独真人秀综艺</td></tr>
+                            <tr><td>2025</td><td class="notranslate">MBC</td><td class="notranslate">全知干预视角</td><td>嘉宾出演</td></tr>
+                            <tr><td>2025</td><td class="notranslate">tvN</td><td class="notranslate">惊人的星期六</td><td>嘉宾出演</td></tr>
+                            <tr><td>2026</td><td class="notranslate">SBS</td><td class="notranslate">环环相扣的故事</td><td>故事朋友</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <!-- 标签页 5: 入坑推荐视频 -->
+        <div id="videos" class="tab-content">
+            <div class="card">
+                <div class="card-header">
+                    <i class="fa-solid fa-hand-point-up" style="color: #ffdd00;"></i>
+                    <h2>入坑初期推荐观看</h2>
+                </div>
+                
+                <div class="video-card-list">
+                    <div class="video-card">
+                        <div class="video-title"><i class="fa-solid fa-book" style="color: #10b981"></i> 1. 树维基</div>
+                        <div class="video-links">
+                            <a href="https://namu.wiki/w/%EC%9D%B4%EC%A3%BC%EC%95%88" target="_blank" class="video-btn">
+                                <i class="fa-solid fa-link"></i> 前往树维基</a>
+                        </div>
+                    </div>
+                    <div class="video-card">
+                        <div class="video-title"><i class="fa-brands fa-youtube"></i> 2. 50问50答 <span class="notranslate">Interview</span></div>
+                        <div class="video-links">
+                            <a href="https://youtu.be/ZSYK7FRd5bo?si=UL1qn3KgN-iLj8Wi" target="_blank" class="video-btn">
+                                <i class="fa-solid fa-play"></i> 观看采访</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="card">
+                <div class="card-header">
+                    <i class="fa-brands fa-youtube" style="color: #ef4444;"></i>
+                    <h2>推荐视频合集</h2>
+                </div>
+                
+                <div class="video-card-list">
+                    <div class="video-card">
+                        <div class="video-title"><i class="fa-brands fa-youtube"></i> 1. <span class="notranslate">全知干预视角</span></div>
+                        <div class="video-links">
+                            <a href="https://youtu.be/1dVbP_m11Yg?si=azaTzAHfZjaZR0Ln" target="_blank" class="video-btn"><i class="fa-solid fa-play"></i> 片段 1</a>
+                            <a href="https://youtu.be/3QfLklBugnA?si=zcXPKAztGf7DziVo" target="_blank" class="video-btn"><i class="fa-solid fa-play"></i> 片段 2</a>
+                            <a href="https://youtu.be/IcOIcdRp-h8?si=QEn1NTCJnQoaC535" target="_blank" class="video-btn"><i class="fa-solid fa-play"></i> 片段 3</a>
+                            <a href="https://youtu.be/1B-y4DzTWiQ?si=q3eHNo9bf1wTuiC8" target="_blank" class="video-btn"><i class="fa-solid fa-play"></i> 片段 4</a>
+                        </div>
+                    </div>
+                    <div class="video-card">
+                        <div class="video-title"><i class="fa-brands fa-youtube"></i> 2. <span class="notranslate">魔法灯</span></div>
+                        <div class="video-links">
+                            <a href="https://youtube.com/@kontorage?si=RRMYecRCHUQH4r5d" target="_blank" class="video-btn"><i class="fa-solid fa-arrow-up-right-from-square"></i> 前往官方频道</a>
+                        </div>
+                    </div>
+                    <div class="video-card">
+                        <div class="video-title"><i class="fa-brands fa-youtube"></i> 3. <span class="notranslate">惊人的星期六</span></div>
+                        <div class="video-links">
+                            <a href="https://youtu.be/9bjckVmiNfY?si=C5MHBmhALqUvdXcs" target="_blank" class="video-btn"><i class="fa-solid fa-play"></i> 片段 1</a>
+                            <a href="https://youtu.be/nvvQ9BU9K_8?si=Y1We-3g1hiXTklGd" target="_blank" class="video-btn"><i class="fa-solid fa-play"></i> 片段 2</a>
+                        </div>
+                    </div>
+                    <div class="video-card">
+                        <div class="video-title"><i class="fa-brands fa-youtube"></i> 4. <span class="notranslate">洪锡天的宝石盒</span></div>
+                        <div class="video-links">
+                            <a href="https://youtu.be/uBBjFQvByrE?si=3FjMFDhv4hGKQ-Fh" target="_blank" class="video-btn"><i class="fa-solid fa-play"></i> 观看视频</a>
+                        </div>
+                    </div>
+                    <div class="video-card">
+                        <div class="video-title"><i class="fa-brands fa-youtube"></i> 5. <span class="notranslate">험난희</span></div>
+                        <div class="video-links">
+                            <a href="https://youtu.be/iFH0X9CydU4?si=eV_mKATtsH-oiTUR" target="_blank" class="video-btn"><i class="fa-solid fa-play"></i> 观看视频</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-header">
+                    <i class="fa-solid fa-video" style="color: #718bf5"></i>
+                    <h2>幕后视频</h2>
+                </div>
+                
+                <div class="video-card-list">
+                    <div class="video-card">
+                        <div class="video-title"><i class="fa-solid fa-video" style="color: #718bf5"></i> 1. <span class="notranslate">不是你的恋爱</span> 制作花絮</div>
+                        <div class="video-links">
+                            <a href="https://youtu.be/9GH544F9NS0?si=3DvuGwqfBKB923R8" target="_blank" class="video-btn"><i class="fa-solid fa-play"></i> 制作发布会</a>
+                            <a href="https://youtu.be/ms03Yt9R7RY?si=psaqaBAW30rHQe63" target="_blank" class="video-btn"><i class="fa-solid fa-play"></i> 海报拍摄</a>
+                            <a href="https://youtu.be/Bfgwwcf1yh4?si=iqf1ntfIVWaYRyaO" target="_blank" class="video-btn"><i class="fa-solid fa-play"></i> 剧本围读</a>
+                            <a href="https://youtu.be/bz42ooHXurI?si=ZwHMU3Yc7W2rSSig" target="_blank" class="video-btn"><i class="fa-solid fa-play"></i> 第1-2集</a>
+                            <a href="https://youtu.be/ACWcmFdoooI?si=3H-MxF9jY6kDoGQZ" target="_blank" class="video-btn"><i class="fa-solid fa-play"></i> 第3-4集</a>
+                            <a href="https://youtu.be/SeHektPyL68?si=7BwvE3UIVemKYb4y" target="_blank" class="video-btn"><i class="fa-solid fa-play"></i> 第5-6集</a>
+                            <a href="https://youtu.be/Gsyp5t7knOE?si=K0JVm40LnX7CDlpV" target="_blank" class="video-btn"><i class="fa-solid fa-play"></i> 第7-8集</a>
+                            <a href="https://youtu.be/kdM4XdCROcA?si=0GnsV-9fffBlhkBx" target="_blank" class="video-btn"><i class="fa-solid fa-play"></i> 第9-10集</a>
+                            <a href="https://youtu.be/MDc6FTxeP2g?si=Y6sfdbg7qYSTfczL" target="_blank" class="video-btn"><i class="fa-solid fa-play"></i> 第11-12集</a>
+                            <a href="https://youtu.be/nUBoEqIY1HU?si=pHC-pfox0xey5mo_" target="_blank" class="video-btn"><i class="fa-solid fa-play"></i> 第13-14集</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-header">
+                    <i class="fa-solid fa-image" style="color: #eb924f;"></i>
+                    <h2>画报</h2>
+                </div>
+                
+                <div class="video-card-list">
+                    <div class="video-card">
+                        <div class="video-title"><i class="fa-solid fa-image" style="color: #eb924f;"></i> <span class="notranslate">SINGLES</span> 26.10.05</div>
+                        <div class="video-links">
+                            <a href="https://m.singleskorea.com/star/2026/10/721971" target="_blank" class="video-btn">
+                                <i class="fa-solid fa-link"></i> 采访</a>
+                            <a href="https://m.singleskorea.com/star/2026/10/721979" target="_blank" class="video-btn">
+                                <i class="fa-solid fa-link"></i> 视频</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <footer>
+        <p style="font-size: 1.1rem; font-weight: 700; color: #ffffff; margin-bottom: 0.3rem;">祝你追星愉快<span class="notranslate">(๑&gt;؂•̀๑)</span></p>
+        <p>有空就会一点点更新...👀</p>
+    </footer>
+    <script>
+        // 标签切换函数
+        function switchTab(tabId, btnElement) {
+            const contents = document.querySelectorAll('.tab-content');
+            contents.forEach(content => content.classList.remove('active'));
+            const buttons = document.querySelectorAll('.tab-btn');
+            buttons.forEach(btn => btn.classList.remove('active'));
+            document.getElementById(tabId).classList.add('active');
+            btnElement.classList.add('active');
+        }
+        // FAQ手风琴切换
+        function toggleFAQ(element) {
+            const faqItem = element.parentElement;
+            faqItem.classList.toggle('open');
+        }
+        // FAQ实时关键词搜索
+        function filterFAQ() {
+            const input = document.getElementById('faqSearch');
+            const filter = input.value.toLowerCase();
+            const faqList = document.getElementById('faqList');
+            const items = faqList.getElementsByClassName('faq-item');
+            for (let i = 0; i < items.length; i++) {
+                const question = items[i].querySelector('.faq-question span').innerText;
+                const answer = items[i].querySelector('.faq-answer').innerText;
+                if (question.toLowerCase().indexOf(filter) > -1 || answer.toLowerCase().indexOf(filter) > -1) {
+                    items[i].style.display = "";
+                } else {
+                    items[i].style.display = "none";
+                }
+            }
+        }
+    </script>
+    <!-- 首次访问提示弹窗 -->
+    <div id="noticeModal">
+        <div class="notice-box">
+            <h2>🙇🏻‍♀️ 通知！🙇🏻‍♀️</h2>
+            <p>
+                <br>你好！我是制作李周安指南的<span class="notranslate">좐걸（周安girl）</span>。<br>
+                不少<span class="notranslate">좐걸（周安girl）</span>好像都在参考这份指南！<br>
+                由于我目前日常比较忙碌，可能无法快速更新信息而有所遗漏，因此添加了<b>意见发送</b>功能。<br>
+                点击气泡按钮，随时告诉我们错误/需要补充的信息以及对指南的意见，我们确认后会进行修改和补充。<br>
+                <b>修改在每周一~周二进行！</b><br>
+                <br>感谢使用:) 祝你追星愉快😊
+            </p>
+            <div class="notice-actions">
+                <button id="noticeClose">关闭</button>
+                <button id="noticeTodayClose">今日不再显示</button>
+            </div>
+        </div>
+    </div>
+                
+    <!-- 意见发送按钮 -->
+    <button id="feedbackButton" type="button">
+        <i class="fa-solid fa-comment-dots"></i>
+    </button>
+    <!-- 意见填写窗口 -->
+    <div id="feedbackModal">
+        <div class="feedback-box">
+            <h3>💌 意见发送</h3>
+            <p>请自由留下对High End指南的意见或建议。</p>
+            <textarea
+                id="feedbackMessage"
+                placeholder="请输入意见。"
+            ></textarea>
+            <p id="feedbackStatus"></p>
+            <div class="feedback-actions">
+                <button id="feedbackClose" type="button">关闭</button>
+                <button id="feedbackSubmit" type="button">发送</button>
+            </div>
+            
+        </div>
+    </div>
+    <script>
+        // Google Apps Script 地址
+        const feedbackEndpoint = "https://script.google.com/macros/s/AKfycbzkYfKLXX7b73I3ey0VYgODtDnCp8ZdEnBg0bmV5duN0iRTuA2giJsMLUqOI717c5SFlQ/exec";
+        const feedbackButton = document.getElementById("feedbackButton");
+        const feedbackModal = document.getElementById("feedbackModal");
+        const feedbackMessage = document.getElementById("feedbackMessage");
+        const feedbackClose = document.getElementById("feedbackClose");
+        const feedbackSubmit = document.getElementById("feedbackSubmit");
+        const feedbackStatus = document.getElementById("feedbackStatus");
+        feedbackButton.addEventListener("click", () => {
+            feedbackModal.style.display = "flex";
+        });
+        feedbackClose.addEventListener("click", () => {
+            feedbackModal.style.display = "none";
+        });
+        feedbackModal.addEventListener("click", (event) => {
+            if (event.target === feedbackModal) {
+                feedbackModal.style.display = "none";
+            }
+        });
+        feedbackSubmit.addEventListener("click", async () => {
+            const message = feedbackMessage.value.trim();
+            if (!message) {
+                feedbackStatus.textContent = "请输入意见。";
+                return;
+            }
+            feedbackSubmit.disabled = true;
+            feedbackStatus.textContent = "正在发送。";
+            try {
+                await fetch(feedbackEndpoint, {
+                    method: "POST",
+                    mode: "no-cors",
+                    headers: {
+                        "Content-Type": "application/x-www-form-urlencoded;charset=UTF-8"
+                    },
+                    body: new URLSearchParams({
+                        message: message
+                    })
+                });
+                feedbackStatus.textContent = "意见发送请求已提交！";
+                feedbackMessage.value = "";
+            } catch (error) {
+                feedbackStatus.textContent = "发送失败，请重试。";
+                console.error("意见发送错误:", error);
+            } finally {
+                feedbackSubmit.disabled = false;
+            }
+        });
+        // 首次访问提示弹窗
+        const noticeModal = document.getElementById("noticeModal");
+        const noticeClose = document.getElementById("noticeClose");
+        const noticeTodayClose = document.getElementById("noticeTodayClose");
+        
+        const today = new Date().toLocaleDateString("sv-SE");
+        const closedDate = localStorage.getItem("noticeClosedDate");
+        
+        if (closedDate !== today) {
+            noticeModal.style.display = "flex";
+        }
+        
+        noticeClose.addEventListener("click", () => {
+            noticeModal.style.display = "none";
+        });
+        
+        noticeTodayClose.addEventListener("click", () => {
+            localStorage.setItem("noticeClosedDate", today);
+            noticeModal.style.display = "none";
+        });
+    </script>
+        
+</body>
+</html>
