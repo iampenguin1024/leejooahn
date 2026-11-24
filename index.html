@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
@@ -336,6 +336,46 @@
             margin-bottom: 1.2rem;
             position: relative;
         }
+        /* 核心文化卡片：标题用「图标 + 文本块」两列，文本走正常排版流 */
+        .tip-title {
+            display: flex;
+            align-items: flex-start;
+            gap: 8px;
+            margin-bottom: 0.5rem;
+            color: #ffffff;
+            font-size: clamp(1rem, 4.2vw, 1.1rem);
+            font-weight: 700;
+            line-height: 1.5;
+        }
+        .tip-title > i {
+            flex: 0 0 auto;
+            margin-top: 0.2em;
+            color: var(--accent-gold);
+        }
+        .tip-title-text {
+            min-width: 0;
+            overflow-wrap: anywhere;
+        }
+        /* 术语「주안시（周安时）」尽量不拆行 */
+        .tip-title-text .notranslate {
+            white-space: nowrap;
+        }
+        .tip-text {
+            font-size: clamp(0.85rem, 3.4vw, 0.9rem);
+            color: #d1d5db;
+            line-height: 1.7;
+            overflow-wrap: anywhere;
+        }
+        .tip-note {
+            margin-top: 0.9rem;
+            padding: clamp(0.7rem, 3vw, 0.85rem);
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 8px;
+            font-size: clamp(0.78rem, 3.2vw, 0.82rem);
+            color: #a7f3d0;
+            line-height: 1.75;
+            overflow-wrap: anywhere;
+        }
         .time-badge {
             position: absolute;
             top: 1.1rem;
@@ -442,25 +482,106 @@
         /* 画廊 & 表格 & 视频 */
         .gallery-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(min(160px, 100%), 1fr));
-            gap: 0.8rem;
-            margin-top: 0.8rem;
+            grid-template-columns: repeat(auto-fill, minmax(min(150px, 100%), 1fr));
+            gap: 0.9rem;
+            margin-top: 0.9rem;
         }
-        .gallery-card {
-            background: rgba(255, 255, 255, 0.03);
+        .photo-card {
+            display: flex;
+            flex-direction: column;
+            min-width: 0;
+            margin: 0;
+            overflow: hidden;
             border: 1px solid var(--border-color);
             border-radius: 12px;
-            padding: 2.5rem 1rem;
+            background: rgba(255, 255, 255, 0.03);
+        }
+        /* 用 padding-top 撑出 3:4 比例，老版微信内核也能正常显示 */
+        .photo-media {
+            position: relative;
+            width: 100%;
+            padding-top: 133.333%;
+            background: linear-gradient(135deg, rgba(16, 185, 129, 0.1), rgba(255, 255, 255, 0.03));
+        }
+        .photo-media img {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+        .photo-fallback {
+            position: absolute;
+            inset: 0;
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 0.8rem;
+            color: var(--text-muted);
+            font-size: 0.76rem;
+            line-height: 1.5;
+            text-align: center;
+        }
+        .photo-fallback i {
+            font-size: 1.5rem;
+            opacity: 0.75;
+        }
+        .photo-card.is-missing .photo-media img {
+            display: none;
+        }
+        .photo-card.is-missing .photo-fallback {
+            display: flex;
+        }
+        .photo-meta {
+            display: flex;
+            flex-direction: column;
+            align-items: stretch;
+            gap: 6px;
+            margin-top: auto;
+            padding: 0.7rem 0.8rem;
+            background: rgba(0, 0, 0, 0.2);
+        }
+        .photo-name {
+            min-width: 0;
+            font-size: 0.82rem;
+            line-height: 1.45;
+            color: var(--text-muted);
+            overflow-wrap: anywhere;
+        }
+        .photo-download {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 5px;
+            width: 100%;
+            padding: 6px 12px;
+            border-radius: 6px;
+            background: var(--accent-green);
+            color: #000000;
+            font-size: 0.8rem;
+            font-weight: 700;
+            text-decoration: none;
+        }
+        .gallery-card {
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
+            gap: 0.6rem;
+            min-height: 160px;
+            padding: 1rem;
+            border: 1px dashed var(--border-color);
+            border-radius: 12px;
+            background: rgba(255, 255, 255, 0.02);
             color: var(--text-muted);
             font-size: 0.82rem;
+            text-align: center;
         }
         .gallery-card i {
-            font-size: 2rem;
-            margin-bottom: 0.6rem;
+            font-size: 1.8rem;
         }
         .table-container {
             overflow-x: auto;
@@ -571,7 +692,7 @@
             .faq-item.open .faq-answer > .faq-answer-inner { padding: 0.85rem 0.95rem 1rem; }
             .search-box input { font-size: 16px; }
             .tab-btn { padding: 0.9rem 0.85rem; }
-            .gallery-grid { grid-template-columns: repeat(auto-fill, minmax(min(140px, 100%), 1fr)); }
+            .gallery-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.6rem; }
             /* 移动端滚动时 backdrop-filter 很吃性能，改成实色底 */
             .nav-wrapper {
                 background: rgba(15, 20, 25, 0.97);
@@ -1129,13 +1250,14 @@
         <!-- 标签页 2: High End 问答 -->
         <div id="faq" class="tab-content">
             <div class="special-card">
-                <h3 style="color: #ffffff; font-size: 1.1rem; margin-bottom: 0.4rem; display: flex; align-items: center; gap: 8px;">
-                    <i class="fa-solid fa-bell" style="color: var(--accent-gold);"></i> High End 核心文化：“<span class="notranslate">주안시（周安时）</span>”是什么？
+                <h3 class="tip-title">
+                    <i class="fa-solid fa-bell"></i>
+                    <span class="tip-title-text">High End 核心文化：“<span class="notranslate">주안시（周安时）</span>”是什么？</span>
                 </h3>
-                <p style="font-size: 0.9rem; color: #d1d5db; line-height: 1.6;">
+                <p class="tip-text">
                     这是配合李周安演员生日<strong>1月24日</strong>，在周五、六、日<strong>凌晨1点24分</strong>通过High End发送“<span class="notranslate">주안시（周安时）</span>”消息的粉丝参与文化！
                 </p>
-                <div style="margin-top: 0.8rem; background: rgba(0, 0, 0, 0.3); padding: 0.8rem; border-radius: 8px; font-size: 0.82rem; color: #a7f3d0; line-height: 1.6;">
+                <div class="tip-note">
                     💡 <strong><span class="notranslate">주안시（周安时）</span>小贴士：</strong>演员本人也会亲自参与，并由演员排名和公布！发送消息时加上自己的装饰或标记，方便本人确认！<br>（即使没进排名，演员偶尔也会颁发装饰奖🎁）<br><br>
                     ※ 下午1点24分不进行活动，<span class="notranslate">주안시</span>后面加“！”会发送失败 ※
                 </div>
@@ -1305,36 +1427,48 @@
                     High End图片上传空间。
                 </p>
                 <div class="gallery-grid">
-                    <div class="photo-card" style="background: rgba(255, 255, 255, 0.03); border: 1px solid var(--border-color); border-radius: 12px; overflow: hidden; display: flex; flex-direction: column;">
-                        <img src="photo1.jpg" alt="周安 崇拜" loading="lazy" decoding="async" style="width: 100%; height: 300px; object-fit: cover; display: block;" onerror="this.onerror=null; this.src='profile.jpg';">
-                        <div style="padding: 0.8rem; display: flex; justify-content: space-between; align-items: center; background: rgba(0,0,0,0.2);">
-                            <span style="font-size: 0.82rem; color: var(--text-muted);" class="notranslate">주안 추앙（周安 崇拜）</span>
-                            <a href="photo1.jpg" download="주안추앙.jpg" class="video-btn" style="padding: 5px 12px; font-size: 0.8rem; background: var(--accent-green); color: #000; font-weight: 700; text-decoration: none; border-radius: 6px;">
-                                <i class="fa-solid fa-download"></i> 下载
-                            </a>
+                    <figure class="photo-card">
+                        <div class="photo-media">
+                            <img src="photo1-web.jpg" width="900" height="1200" alt="周安 崇拜" loading="lazy" decoding="async" onerror="this.closest('.photo-card').classList.add('is-missing');">
+                            <div class="photo-fallback" aria-hidden="true">
+                                <i class="fa-regular fa-image"></i>
+                                <span>图片加载失败<br>可点下方按钮下载原图</span>
+                            </div>
                         </div>
-                    </div>
-                    
-                    <div class="photo-card" style="background: rgba(255, 255, 255, 0.03); border: 1px solid var(--border-color); border-radius: 12px; overflow: hidden; display: flex; flex-direction: column;">
-                        <img src="photo2.jpg" alt="哎呀 风" loading="lazy" decoding="async" style="width: 100%; height: 300px; object-fit: cover; display: block;" onerror="this.onerror=null; this.src='profile.jpg';">
-                        <div style="padding: 0.8rem; display: flex; justify-content: space-between; align-items: center; background: rgba(0,0,0,0.2);">
-                            <span style="font-size: 0.82rem; color: var(--text-muted);">哎呀 风</span>
-                            <a href="photo2.jpg" download="어이쿠 바람.jpg" class="video-btn" style="padding: 5px 12px; font-size: 0.8rem; background: var(--accent-green); color: #000; font-weight: 700; text-decoration: none; border-radius: 6px;">
-                                <i class="fa-solid fa-download"></i> 下载
-                            </a>
+                        <figcaption class="photo-meta">
+                            <span class="photo-name notranslate">주안 추앙（周安 崇拜）</span>
+                            <a class="photo-download" href="photo1.jpg" download="주안추앙.jpg"><i class="fa-solid fa-download"></i> 下载</a>
+                        </figcaption>
+                    </figure>
+
+                    <figure class="photo-card">
+                        <div class="photo-media">
+                            <img src="photo2-web.jpg" width="900" height="1257" alt="哎呀 风" loading="lazy" decoding="async" onerror="this.closest('.photo-card').classList.add('is-missing');">
+                            <div class="photo-fallback" aria-hidden="true">
+                                <i class="fa-regular fa-image"></i>
+                                <span>图片加载失败<br>可点下方按钮下载原图</span>
+                            </div>
                         </div>
-                    </div>
-                    
-                    <div class="photo-card" style="background: rgba(255, 255, 255, 0.03); border: 1px solid var(--border-color); border-radius: 12px; overflow: hidden; display: flex; flex-direction: column;">
-                        <img src="photo3.jpeg" alt="润唇膏合集" loading="lazy" decoding="async" style="width: 100%; height: 300px; object-fit: cover; display: block;" onerror="this.onerror=null; this.src='profile.jpg';">
-                        <div style="padding: 0.8rem; display: flex; justify-content: space-between; align-items: center; background: rgba(0,0,0,0.2);">
-                            <span style="font-size: 0.82rem; color: var(--text-muted);">润唇膏合集</span>
-                            <a href="photo3.jpeg" download="립밤 모음집.jpg" class="video-btn" style="padding: 5px 12px; font-size: 0.8rem; background: var(--accent-green); color: #000; font-weight: 700; text-decoration: none; border-radius: 6px;">
-                                <i class="fa-solid fa-download"></i> 下载
-                            </a>
+                        <figcaption class="photo-meta">
+                            <span class="photo-name">哎呀 风</span>
+                            <a class="photo-download" href="photo2.jpg" download="어이쿠 바람.jpg"><i class="fa-solid fa-download"></i> 下载</a>
+                        </figcaption>
+                    </figure>
+
+                    <figure class="photo-card">
+                        <div class="photo-media">
+                            <img src="photo3-web.jpg" width="900" height="1172" alt="润唇膏合集" loading="lazy" decoding="async" onerror="this.closest('.photo-card').classList.add('is-missing');">
+                            <div class="photo-fallback" aria-hidden="true">
+                                <i class="fa-regular fa-image"></i>
+                                <span>图片加载失败<br>可点下方按钮下载原图</span>
+                            </div>
                         </div>
-                    </div>
-                    
+                        <figcaption class="photo-meta">
+                            <span class="photo-name">润唇膏合集</span>
+                            <a class="photo-download" href="photo3.jpeg" download="립밤 모음집.jpg"><i class="fa-solid fa-download"></i> 下载</a>
+                        </figcaption>
+                    </figure>
+
                     <div class="gallery-card">
                         <i class="fa-regular fa-image"></i>
                         <span>准备中的画廊</span>
@@ -1343,12 +1477,12 @@
                         <i class="fa-regular fa-image"></i>
                         <span>准备中的画廊</span>
                     </div>
-                    
+
                     <div class="gallery-card">
                         <i class="fa-regular fa-image"></i>
                         <span>准备中的画廊</span>
                     </div>
-                    
+
                 </div>
             </div>
         </div>
