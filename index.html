@@ -1,8 +1,14 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <meta name="color-scheme" content="dark">
+    <meta name="theme-color" content="#0f1419">
+    <!-- GitHub Pages 默认会缓存 10 分钟，这几行让浏览器尽量不拿旧页面 -->
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
     <title>李周安 HIAND 指南</title>
     <!-- Google Fonts & Font Awesome Icons -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -20,30 +26,46 @@
             --text-main: #f3f4f6;
             --text-muted: #9ca3af;
             --border-color: rgba(255, 255, 255, 0.1);
-            --glass-bg: rgba(24, 32, 38, 0.88);
+            --glass-bg: rgba(24, 32, 38, 0.9);
         }
-        * {
+        *,
+        *::before,
+        *::after {
             box-sizing: border-box;
             margin: 0;
             padding: 0;
+        }
+        html {
+            -webkit-text-size-adjust: 100%;
+            text-size-adjust: 100%;
+            scroll-behavior: smooth;
+        }
+        /* 字体只放在 body 上靠继承，不要写到 *::before，否则会把 Font Awesome 的图标字体覆盖掉 */
+        body {
             font-family: 'Pretendard', 'Noto Sans KR', sans-serif;
             -webkit-font-smoothing: antialiased;
             -webkit-tap-highlight-color: transparent;
-        }
-        body {
             background-color: var(--bg-dark);
             color: var(--text-main);
             line-height: 1.6;
             margin: 0;
             padding-bottom: 0 !important;
+            /* keep-all 保证韩文不被随意拆开，anywhere 保证长句/长英文在窄屏也一定会换行 */
             word-break: keep-all;
+            overflow-wrap: anywhere;
+        }
+        button, input, textarea, select {
+            font: inherit;
+        }
+        img {
+            max-width: 100%;
         }
         /* 主视觉区域 */
         .hero {
             position: relative;
             background: linear-gradient(180deg, rgba(15, 20, 25, 0.5) 0%, var(--bg-dark) 100%),
                         radial-gradient(circle at 50% 20%, rgba(16, 185, 129, 0.2) 0%, transparent 70%);
-            padding: 2.2rem 1rem 1.6rem;
+            padding: clamp(1.7rem, 5vw, 2.2rem) 1rem clamp(1.2rem, 4vw, 1.6rem);
             text-align: center;
             border-bottom: 1px solid var(--border-color);
         }
@@ -55,7 +77,7 @@
             align-items: center;
         }
         .main-slogan {
-            font-size: 1.05rem;
+            font-size: clamp(0.88rem, 3.8vw, 1.05rem);
             font-weight: 800;
             color: var(--accent-gold);
             background: rgba(251, 191, 36, 0.12);
@@ -68,16 +90,18 @@
             gap: 8px;
             letter-spacing: -0.3px;
             box-shadow: 0 4px 15px rgba(251, 191, 36, 0.1);
+            max-width: 100%;
         }
         .profile-img-wrapper {
             position: relative;
-            width: 140px;
-            height: 140px;
+            width: clamp(112px, 32vw, 140px);
+            height: clamp(112px, 32vw, 140px);
             border-radius: 50%;
             padding: 4px;
             background: linear-gradient(135deg, var(--accent-green), var(--accent-gold));
             box-shadow: 0 10px 25px rgba(16, 185, 129, 0.35);
             margin-bottom: 1rem;
+            flex: none;
         }
         .profile-img {
             width: 100%;
@@ -101,17 +125,19 @@
             margin-bottom: 0.5rem;
         }
         .hero h1 {
-            font-size: 2.1rem;
+            font-size: clamp(1.55rem, 6.5vw, 2.1rem);
             font-weight: 800;
             letter-spacing: -0.5px;
             margin-bottom: 0.3rem;
             background: linear-gradient(to right, #ffffff, #d1d5db);
             -webkit-background-clip: text;
+            background-clip: text;
             -webkit-text-fill-color: transparent;
+            max-width: 100%;
         }
         .hero p {
             color: var(--text-muted);
-            font-size: 0.9rem;
+            font-size: clamp(0.84rem, 3.4vw, 0.9rem);
         }
         .nicknames {
             margin-top: 0.8rem;
@@ -128,6 +154,7 @@
             border-radius: 8px;
             font-size: 0.78rem;
             font-weight: 500;
+            max-width: 100%;
         }
         /* 导航栏 */
         .nav-wrapper {
@@ -146,7 +173,9 @@
             overflow-x: auto;
             white-space: nowrap;
             -webkit-overflow-scrolling: touch;
+            overscroll-behavior-x: contain;
             scrollbar-width: none;
+            scroll-behavior: smooth;
         }
         nav::-webkit-scrollbar {
             display: none;
@@ -157,15 +186,16 @@
             border: none;
             padding: 1rem 1.1rem;
             color: var(--text-muted);
-            font-size: 0.9rem;
+            font-size: clamp(0.83rem, 3.5vw, 0.9rem);
             font-weight: 600;
             cursor: pointer;
-            transition: all 0.2s ease;
+            transition: color 0.18s ease;
             position: relative;
             display: flex;
             align-items: center;
             justify-content: center;
             gap: 6px;
+            touch-action: manipulation;
         }
         .tab-btn:hover {
             color: var(--text-main);
@@ -187,11 +217,12 @@
         .container {
             max-width: 800px;
             margin: 1.5rem auto;
-            padding: 0 1rem;
+            padding-left: max(1rem, env(safe-area-inset-left));
+            padding-right: max(1rem, env(safe-area-inset-right));
         }
         .tab-content {
             display: none;
-            animation: fadeIn 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            animation: fadeIn 0.28s cubic-bezier(0.16, 1, 0.3, 1);
         }
         .tab-content.active {
             display: block;
@@ -203,10 +234,11 @@
         .card {
             background-color: var(--bg-card);
             border-radius: 16px;
-            padding: 1.4rem;
+            padding: clamp(1rem, 4vw, 1.4rem);
             margin-bottom: 1.2rem;
             border: 1px solid var(--border-color);
-            box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+            min-width: 0;
         }
         .card-header {
             display: flex;
@@ -221,14 +253,14 @@
             font-size: 1.15rem;
         }
         .card-header h2 {
-            font-size: 1.2rem;
+            font-size: clamp(1.05rem, 4.4vw, 1.2rem);
             font-weight: 700;
             color: #ffffff;
         }
         /* 网格与徽章 */
         .info-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(min(200px, 100%), 1fr));
             gap: 0.8rem;
         }
         .info-box {
@@ -236,6 +268,7 @@
             border: 1px solid var(--border-color);
             padding: 0.9rem;
             border-radius: 12px;
+            min-width: 0;
         }
         .info-label {
             font-size: 0.78rem;
@@ -249,6 +282,7 @@
             font-size: 0.95rem;
             font-weight: 600;
             color: #ffffff;
+            overflow-wrap: anywhere;
         }
         .lifestyle-section {
             display: flex;
@@ -260,6 +294,7 @@
             border: 1px solid var(--border-color);
             border-radius: 12px;
             padding: 1rem;
+            min-width: 0;
         }
         .group-title {
             font-size: 0.9rem;
@@ -285,6 +320,9 @@
             display: inline-flex;
             align-items: center;
             gap: 6px;
+            max-width: 100%;
+            overflow-wrap: anywhere;
+            white-space: normal;
         }
         .pill-badge strong {
             color: var(--accent-gold);
@@ -294,7 +332,7 @@
             background: linear-gradient(135deg, rgba(16, 185, 129, 0.15) 0%, rgba(24, 32, 38, 0.95) 100%);
             border: 1px solid rgba(16, 185, 129, 0.4);
             border-radius: 16px;
-            padding: 1.4rem;
+            padding: clamp(1rem, 4vw, 1.4rem);
             margin-bottom: 1.2rem;
             position: relative;
         }
@@ -323,7 +361,9 @@
             color: white;
             font-size: 0.9rem;
             outline: none;
-            transition: all 0.2s ease;
+            transition: border-color 0.18s ease, background-color 0.18s ease;
+            -webkit-appearance: none;
+            appearance: none;
         }
         .search-box input:focus {
             border-color: var(--accent-green);
@@ -355,37 +395,54 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
+            gap: 10px;
             color: #ffffff;
             user-select: none;
+            line-height: 1.45;
+        }
+        .faq-question span {
+            min-width: 0;
+            overflow-wrap: anywhere;
         }
         .faq-question i {
             color: var(--text-muted);
-            transition: transform 0.3s ease;
+            transition: transform 0.3s ease, color 0.3s ease;
+            flex: none;
         }
         .faq-answer {
-            max-height: 0;
-            overflow: hidden;
-            transition: max-height 0.35s ease, padding 0.35s ease;
+            display: grid;
+            grid-template-rows: 0fr;
+            transition: grid-template-rows 0.32s ease;
             background: rgba(0, 0, 0, 0.2);
             color: #d1d5db;
             font-size: 0.88rem;
             line-height: 1.65;
-            padding: 0 1.1rem;
             white-space: pre-line;
+            overflow-wrap: anywhere;
+        }
+        .faq-answer > .faq-answer-inner {
+            overflow: hidden;
+            min-height: 0;
+            padding: 0 1.1rem;
+            transition: padding 0.32s ease;
         }
         .faq-item.open .faq-question i {
             transform: rotate(180deg);
             color: var(--accent-green);
         }
         .faq-item.open .faq-answer {
-            max-height: 500px;
+            grid-template-rows: 1fr;
+        }
+        .faq-item.open .faq-answer > .faq-answer-inner {
             padding: 0.9rem 1.1rem 1.1rem;
-            border-top: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        .faq-item.open .faq-question {
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
         }
         /* 画廊 & 表格 & 视频 */
         .gallery-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+            grid-template-columns: repeat(auto-fill, minmax(min(160px, 100%), 1fr));
             gap: 0.8rem;
             margin-top: 0.8rem;
         }
@@ -407,9 +464,14 @@
         }
         .table-container {
             overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+            overscroll-behavior-x: contain;
+            scrollbar-width: thin;
+            max-width: 100%;
         }
         table {
             width: 100%;
+            min-width: 520px;
             border-collapse: collapse;
             text-align: left;
             font-size: 0.88rem;
@@ -420,11 +482,13 @@
             font-weight: 600;
             padding: 0.75rem 0.8rem;
             border-bottom: 1px solid var(--border-color);
+            white-space: nowrap;
         }
         td {
             padding: 0.85rem 0.8rem;
             border-bottom: 1px solid rgba(255, 255, 255, 0.05);
             color: #e5e7eb;
+            overflow-wrap: anywhere;
         }
         .role-badge {
             display: inline-block;
@@ -440,7 +504,7 @@
         }
         .video-card-list {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(min(260px, 100%), 1fr));
             gap: 1rem;
         }
         .video-card {
@@ -451,6 +515,7 @@
             display: flex;
             flex-direction: column;
             justify-content: space-between;
+            min-width: 0;
         }
         .video-title {
             font-weight: 700;
@@ -460,6 +525,7 @@
             display: flex;
             align-items: center;
             gap: 8px;
+            flex-wrap: wrap;
         }
         .video-title i {
             color: #ef4444;
@@ -478,10 +544,13 @@
             font-size: 0.8rem;
             font-weight: 500;
             border: 1px solid var(--border-color);
-            transition: all 0.2s ease;
+            transition: background-color 0.18s ease, color 0.18s ease, border-color 0.18s ease;
             display: inline-flex;
             align-items: center;
             gap: 5px;
+            max-width: 100%;
+            white-space: normal;
+            touch-action: manipulation;
         }
         .video-btn:hover {
             background: var(--accent-green);
@@ -490,13 +559,69 @@
             border-color: var(--accent-green);
         }
         @media (max-width: 640px) {
-            .hero { padding: 2rem 1rem 1.4rem; }
-            .hero h1 { font-size: 1.7rem; }
-            .main-slogan { font-size: 0.92rem; padding: 6px 14px; }
-            .profile-img-wrapper { width: 125px; height: 125px; }
-            .card { padding: 1.1rem; }
+            .hero { padding: 1.9rem 1rem 1.3rem; }
+            .main-slogan { padding: 6px 14px; }
+            .card-header { margin-bottom: 1rem; }
+            .card { padding: 1.05rem; }
             .info-grid { grid-template-columns: 1fr; }
-            .pill-badge { font-size: 0.82rem; padding: 5px 10px; }
+            .pill-badge { font-size: 0.84rem; padding: 5px 10px; }
+            .lifestyle-group { padding: 0.85rem; }
+            .faq-question { padding: 0.9rem 0.95rem; }
+            .faq-answer > .faq-answer-inner { padding: 0 0.95rem; }
+            .faq-item.open .faq-answer > .faq-answer-inner { padding: 0.85rem 0.95rem 1rem; }
+            .search-box input { font-size: 16px; }
+            .tab-btn { padding: 0.9rem 0.85rem; }
+            .gallery-grid { grid-template-columns: repeat(auto-fill, minmax(min(140px, 100%), 1fr)); }
+            /* 移动端滚动时 backdrop-filter 很吃性能，改成实色底 */
+            .nav-wrapper {
+                background: rgba(15, 20, 25, 0.97);
+                backdrop-filter: none;
+                -webkit-backdrop-filter: none;
+            }
+        }
+        /* 手机端把表格变成卡片，避免表格被裁切或需要左右拖动 */
+        @media (max-width: 640px) {
+            .table-container { overflow: visible; }
+            .table-container table { min-width: 0; display: block; }
+            .table-container thead { display: none; }
+            .table-container tbody { display: block; }
+            .table-container tr {
+                display: block;
+                border: 1px solid var(--border-color);
+                border-radius: 10px;
+                padding: 0.2rem 0.85rem;
+                margin-bottom: 0.6rem;
+                background: rgba(255, 255, 255, 0.02);
+            }
+            .table-container tr:last-child { margin-bottom: 0; }
+            .table-container td {
+                display: flex;
+                align-items: baseline;
+                justify-content: space-between;
+                gap: 14px;
+                padding: 0.55rem 0;
+                border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+                text-align: right;
+            }
+            .table-container td:last-child { border-bottom: none; }
+            .table-container td::before {
+                content: attr(data-label);
+                flex: none;
+                color: var(--text-muted);
+                font-size: 0.78rem;
+                font-weight: 500;
+                text-align: left;
+                white-space: nowrap;
+            }
+        }
+        @media (max-width: 380px) {
+            .container {
+                padding-left: max(0.75rem, env(safe-area-inset-left));
+                padding-right: max(0.75rem, env(safe-area-inset-right));
+            }
+            .hero { padding-left: 0.75rem; padding-right: 0.75rem; }
+            .card { padding: 0.9rem; }
+            .lifestyle-group { padding: 0.75rem; }
         }
         
         html, body {
@@ -504,17 +629,12 @@
             margin: 0 !important;
             padding: 0 !important;
         }
-        .container:has(footer) {
-            margin-bottom: 0 !important;
-        }
         
         footer {
-            width: 100vw;
-            position: relative;
-            left: 50%;
-            margin: 3rem 0 0 -50vw !important;
+            width: 100%;
+            margin: 3rem 0 0 !important;
             margin-bottom: 0 !important;
-            padding: 2.5rem 1rem;
+            padding: 2.5rem 1rem calc(2.5rem + env(safe-area-inset-bottom));
             background-color: #080d11;
             border-radius: 0 !important;
             text-align: center;
@@ -522,7 +642,6 @@
             color: var(--text-muted);
             font-size: 0.85rem;
             line-height: 1.6;
-            box-sizing: border-box;
         }
         .lifestyle-group-clean .pill-container {
             display: flex;
@@ -574,8 +693,8 @@
         /* 意见发送按钮 */
         #feedbackButton {
             position: fixed;
-            right: 24px;
-            bottom: 24px;
+            right: max(16px, env(safe-area-inset-right));
+            bottom: max(16px, env(safe-area-inset-bottom));
             z-index: 9999;
             padding: 14px 22px;
             border: none;
@@ -586,6 +705,7 @@
             font-weight: bold;
             cursor: pointer;
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+            touch-action: manipulation;
         }
         
         /* 意见填写窗口背景 */
@@ -598,16 +718,23 @@
             justify-content: center;
             align-items: center;
             padding: 20px;
+            overflow-y: auto;
+            -webkit-overflow-scrolling: touch;
         }
         
         /* 意见填写窗口主体 */
         #feedbackModal .feedback-box {
             width: 100%;
             max-width: 420px;
+            max-height: calc(100vh - 24px);
+            max-height: calc(100dvh - 24px);
+            overflow-y: auto;
+            -webkit-overflow-scrolling: touch;
             padding: 28px;
             background: white;
             border-radius: 16px;
             box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
+            margin: auto;
         }
         
         /* 标题 */
@@ -632,10 +759,11 @@
             margin-top: 12px;
             border: 1px solid #dddddd;
             border-radius: 8px;
-            font-size: 14px;
+            font-size: 16px;
             resize: vertical;
             color: #333333;
             background: #ffffff;
+            font-family: inherit;
         }
         
         /* 底部按钮区域 */
@@ -653,6 +781,7 @@
             border-radius: 8px;
             cursor: pointer;
             font-size: 14px;
+            touch-action: manipulation;
         }
         
         /* 关闭按钮 */
@@ -666,6 +795,10 @@
             background: #333333;
             color: white;
         }
+        #feedbackSubmit:disabled {
+            opacity: 0.6;
+            cursor: default;
+        }
         
         /* 发送状态文字 */
         #feedbackStatus {
@@ -673,6 +806,10 @@
             margin-bottom: 0;
             text-align: right;
             min-height: 20px;
+        }
+        #feedbackStatus a {
+            color: #059669;
+            text-decoration: underline;
         }
         #feedbackMessage::placeholder {
             color: #999999;
@@ -687,18 +824,25 @@
             justify-content: center;
             align-items: center;
             padding: 20px;
+            overflow-y: auto;
+            -webkit-overflow-scrolling: touch;
         }
         
         /* 弹窗主体 */
         #noticeModal .notice-box {
             width: 100%;
             max-width: 420px;
+            max-height: calc(100vh - 24px);
+            max-height: calc(100dvh - 24px);
+            overflow-y: auto;
+            -webkit-overflow-scrolling: touch;
             padding: 30px;
             background: #ffffff;
             border-radius: 16px;
             box-shadow: 0 8px 30px rgba(0, 0, 0, 0.25);
             text-align: center;
             color: #222222;
+            margin: auto;
         }
         
         /* 弹窗标题 */
@@ -721,6 +865,7 @@
             justify-content: center;
             gap: 10px;
             margin-top: 24px;
+            flex-wrap: wrap;
         }
         
         /* 弹窗按钮通用 */
@@ -730,6 +875,7 @@
             border-radius: 8px;
             font-size: 14px;
             cursor: pointer;
+            touch-action: manipulation;
         }
         
         /* 关闭 */
@@ -743,13 +889,85 @@
             background: #333333;
             color: #ffffff;
         }
+        body.modal-open {
+            overflow: hidden;
+        }
+        /* 新版本提示条 */
+        #updateToast {
+            position: fixed;
+            left: 50%;
+            bottom: calc(24px + env(safe-area-inset-bottom));
+            transform: translate(-50%, 20px);
+            z-index: 20001;
+            display: none;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 12px 10px 16px;
+            background: #182026;
+            border: 1px solid rgba(16, 185, 129, 0.45);
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.45);
+            color: #f3f4f6;
+            font-size: 0.86rem;
+            white-space: nowrap;
+            opacity: 0;
+            transition: opacity 0.25s ease, transform 0.25s ease;
+        }
+        #updateToast.show {
+            display: flex;
+            opacity: 1;
+            transform: translate(-50%, 0);
+        }
+        #updateToast button {
+            border: none;
+            border-radius: 8px;
+            padding: 6px 12px;
+            font-size: 0.82rem;
+            cursor: pointer;
+            touch-action: manipulation;
+        }
+        #updateReload {
+            background: var(--accent-green);
+            color: #06281f;
+            font-weight: 700;
+        }
+        #updateDismiss {
+            background: transparent;
+            color: var(--text-muted);
+            padding: 6px 8px !important;
+        }
+        @media (max-width: 640px) {
+            #feedbackButton {
+                right: max(12px, env(safe-area-inset-right));
+                bottom: max(12px, env(safe-area-inset-bottom));
+                padding: 12px 16px;
+                font-size: 14px;
+            }
+            #feedbackModal { padding: 12px; }
+            #feedbackModal .feedback-box { padding: 20px; }
+            #noticeModal { padding: 12px; }
+            #noticeModal .notice-box { padding: 22px 18px; }
+            #updateToast { bottom: calc(70px + env(safe-area-inset-bottom)); }
+        }
+        @media (max-height: 640px) {
+            #feedbackModal, #noticeModal { align-items: flex-start; padding-top: 16px; padding-bottom: 16px; }
+            #feedbackMessage { min-height: 110px; }
+        }
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+                scroll-behavior: auto !important;
+            }
+        }
     </style>
 </head>
 <body>
     <header class="hero">
         <div class="hero-container">
             <div class="hero-badge notranslate">
-                <i class="fa-solid fa-sparkles"></i> HIAND Guide
+                <i class="fa-solid fa-wand-magic-sparkles"></i> HIAND Guide
             </div>
             <div class="profile-img-wrapper">
                 <img src="profile.jpeg" id="actorPhoto" alt="李周安 演员" class="profile-img" onerror="this.onerror=null; this.src='https://placehold.co/200x200/182026/10b981?text=%EC%9D%B4%EC%A3%BC%EC%95%88';">
@@ -924,7 +1142,7 @@
             </div>
             <div class="search-box">
                 <i class="fa-solid fa-magnifying-glass"></i>
-                <input type="text" id="faqSearch" onkeyup="filterFAQ()" placeholder="搜索好奇的关键词（粉丝名、眼镜等）">
+                <input type="text" id="faqSearch" oninput="filterFAQ()" placeholder="搜索好奇的关键词（粉丝名、眼镜等）">
             </div>
             <div class="card">
                 <div class="card-header">
@@ -937,65 +1155,65 @@
                             <span>Q. 有字数限制或消息发送次数限制吗？</span>
                             <i class="fa-solid fa-chevron-down"></i>
                         </div>
-                        <div class="faq-answer">一次最多可连续发送7条，存在字数限制。<br>
-                        字数会随着加入天数增加！</div>
+                        <div class="faq-answer"><div class="faq-answer-inner">一次最多可连续发送7条，存在字数限制。<br>
+                        字数会随着加入天数增加！</div></div>
                     </div>
                     <div class="faq-item">
                         <div class="faq-question" onclick="toggleFAQ(this)">
                             <span>Q. 周安nim晚上不睡觉吗？</span>
                             <i class="fa-solid fa-chevron-down"></i>
                         </div>
-                        <div class="faq-answer">是的！周安nim在粉丝中是著名的<b>“短睡眠者（Short Sleeper）”</b>。</div>
+                        <div class="faq-answer"><div class="faq-answer-inner">是的！周安nim在粉丝中是著名的<b>“短睡眠者（Short Sleeper）”</b>。</div></div>
                     </div>
                     <div class="faq-item">
                         <div class="faq-question" onclick="toggleFAQ(this)">
                             <span>Q. 粉丝们值得了解的趣事！</span>
                             <i class="fa-solid fa-chevron-down"></i>
                         </div>
-                        <div class="faq-answer">• 发型：长发和短发没有特别偏好，会根据作品角色调整。
+                        <div class="faq-answer"><div class="faq-answer-inner">• 发型：长发和短发没有特别偏好，会根据作品角色调整。
 - 大学：充满热情地考了4次才进入檀国大学。
 - 字体：据说连母亲都认证的“烂字”。<b>但是！最近通过抄写练习有了巨大进步。</b>
 - 运动：运动神经很好，但几乎唯一不会的就是游泳。
-- 双眼皮：左眼的双眼皮是减肥时自然形成的！</div>
+- 双眼皮：左眼的双眼皮是减肥时自然形成的！</div></div>
                     </div>
                     <div class="faq-item">
                         <div class="faq-question" onclick="toggleFAQ(this)">
                             <span>Q. 有官方粉丝昵称（爱称）吗？</span>
                             <i class="fa-solid fa-chevron-down"></i>
                         </div>
-                        <div class="faq-answer">虽然还没有正式确定，但目前粉丝被称为<b>“<span class="notranslate">좐득이（周安粉）</span>”</b>或<b>“<span class="notranslate">좐걸（周安girl）</span>”</b>！
-（顺便一提，以前拍摄结束后他自己想过并提议过“<span class="notranslate">D-14（디폴틴）</span>”这个名字 😄）</div>
+                        <div class="faq-answer"><div class="faq-answer-inner">虽然还没有正式确定，但目前粉丝被称为<b>“<span class="notranslate">좐득이（周安粉）</span>”</b>或<b>“<span class="notranslate">좐걸（周安girl）</span>”</b>！
+（顺便一提，以前拍摄结束后他自己想过并提议过“<span class="notranslate">D-14（디폴틴）</span>”这个名字 😄）</div></div>
                     </div>
                     <div class="faq-item">
                         <div class="faq-question" onclick="toggleFAQ(this)">
                             <span>Q. “<span class="notranslate">용아맥 &amp; 똥모다치（龙山IMAX &amp; 屎友）</span>”事件是什么？</span>
                             <i class="fa-solid fa-chevron-down"></i>
                         </div>
-                        <div class="faq-answer">和朋友约好一起去龙山IMAX看《奥德赛》，说“不管谁抢到好座位，另一个人坐烂座位也要一起去”，经过几次尝试终于用取消票抢到了<b>J排好座位</b>！
-一起去的朋友抢票失败，成了“烂座位朋友”，最近在日本旅行时又因为拍照拍得不好，最终得到了<b>“<span class="notranslate">똥모다치（屎友，屎+朋友）</span>”</b>的外号。</div>
+                        <div class="faq-answer"><div class="faq-answer-inner">和朋友约好一起去龙山IMAX看《奥德赛》，说“不管谁抢到好座位，另一个人坐烂座位也要一起去”，经过几次尝试终于用取消票抢到了<b>J排好座位</b>！
+一起去的朋友抢票失败，成了“烂座位朋友”，最近在日本旅行时又因为拍照拍得不好，最终得到了<b>“<span class="notranslate">똥모다치（屎友，屎+朋友）</span>”</b>的外号。</div></div>
                     </div>
                     <div class="faq-item">
                         <div class="faq-question" onclick="toggleFAQ(this)">
                             <span>Q. 周安nim肚子上的疤痕是怎么来的？</span>
                             <i class="fa-solid fa-chevron-down"></i>
                         </div>
-                        <div class="faq-answer">是20多岁时为健康恶化的母亲做肝移植手术留下的疤痕。
+                        <div class="faq-answer"><div class="faq-answer-inner">是20多岁时为健康恶化的母亲做肝移植手术留下的疤痕。
                             ※ 该内容在<b>《全知干预视角》</b>中也可以确认。<a href="https://youtu.be/3QfLklBugnA?si=YFQVAWOT7LZeJ9RC" target="_blank" rel="noopener noreferrer" style="color: var(--accent-green); text-decoration: underline;">[观看《全知干预视角》视频]</a>
-                        </div>
+                        </div></div>
                     </div>
                     <div class="faq-item">
                         <div class="faq-question" onclick="toggleFAQ(this)">
                             <span>Q. 视力双眼2.0 / 1.3这么好，为什么还戴眼镜？</span>
                             <i class="fa-solid fa-chevron-down"></i>
                         </div>
-                        <div class="faq-answer">为了保护眼睛以及使用智能设备时<b>防蓝光</b>而佩戴。</div>
+                        <div class="faq-answer"><div class="faq-answer-inner">为了保护眼睛以及使用智能设备时<b>防蓝光</b>而佩戴。</div></div>
                     </div>
                     <div class="faq-item">
                         <div class="faq-question" onclick="toggleFAQ(this)">
                             <span>Q. 相信八字/鬼神吗？</span>
                             <i class="fa-solid fa-chevron-down"></i>
                         </div>
-                        <div class="faq-answer">属于胆子大的类型，据说“完全不”相信八字/鬼神。</div>
+                        <div class="faq-answer"><div class="faq-answer-inner">属于胆子大的类型，据说“完全不”相信八字/鬼神。</div></div>
                     </div>
                     
                     <div class="faq-item">
@@ -1003,7 +1221,7 @@
                             <span>Q. 听歌用什么App？</span>
                             <i class="fa-solid fa-chevron-down"></i>
                         </div>
-                        <div class="faq-answer">订阅了YouTube Premium，音乐主要在YouTube上听。</div>
+                        <div class="faq-answer"><div class="faq-answer-inner">订阅了YouTube Premium，音乐主要在YouTube上听。</div></div>
                     </div>
                     
                     <div class="faq-item">
@@ -1011,66 +1229,66 @@
                             <span>Q. 喜欢玩游戏或看体育比赛吗？</span>
                             <i class="fa-solid fa-chevron-down"></i>
                         </div>
-                        <div class="faq-answer">完全不玩游戏，也不看体育比赛。<br>但是，据说喜欢看<b>YouTube <span class="notranslate">혜안</span>（惠安）</b>和<b><span class="notranslate">우주하마</span>（宇宙河马）</b>当“下饭视频”！</div>
+                        <div class="faq-answer"><div class="faq-answer-inner">完全不玩游戏，也不看体育比赛。<br>但是，据说喜欢看<b>YouTube <span class="notranslate">혜안</span>（惠安）</b>和<b><span class="notranslate">우주하마</span>（宇宙河马）</b>当“下饭视频”！</div></div>
                     </div>
                     <div class="faq-item">
                         <div class="faq-question" onclick="toggleFAQ(this)">
                             <span>Q. 怎么购物？</span>
                             <i class="fa-solid fa-chevron-down"></i>
                         </div>
-                        <div class="faq-answer">最常用<b>Coupang（火箭配送，Wow会员）</b>。</div>
+                        <div class="faq-answer"><div class="faq-answer-inner">最常用<b>Coupang（火箭配送，Wow会员）</b>。</div></div>
                     </div>
                     <div class="faq-item">
                         <div class="faq-question" onclick="toggleFAQ(this)">
                             <span>Q. 除了日语还会其他语言吗？</span>
                             <i class="fa-solid fa-chevron-down"></i>
                         </div>
-                        <div class="faq-answer"><b>英语</b>能听懂一些，<b>其他外语</b>不会。</div>
+                        <div class="faq-answer"><div class="faq-answer-inner"><b>英语</b>能听懂一些，<b>其他外语</b>不会。</div></div>
                     </div>
                     <div class="faq-item">
                         <div class="faq-question" onclick="toggleFAQ(this)">
                             <span>Q. 了解网络流行语或梗吗？</span>
                             <i class="fa-solid fa-chevron-down"></i>
                         </div>
-                        <div class="faq-answer">大部分都不知道。</div>
+                        <div class="faq-answer"><div class="faq-answer-inner">大部分都不知道。</div></div>
                     </div>
                     <div class="faq-item">
                         <div class="faq-question" onclick="toggleFAQ(this)">
                             <span>Q. 能分享一下唇部护理方法吗？</span>
                             <i class="fa-solid fa-chevron-down"></i>
                         </div>
-                        <div class="faq-answer">没有特别的唇部护理，但<b>睡前会涂润唇膏</b>，这是在High End提到过的！
-                            在High End上传的润唇膏种类有“<span class="notranslate">La Bruket润唇膏、Himalaya、Le Labo、Chanel、Neutrogena Daily、Nutsgerin</span>”，也可以在图片标签页中查看。</div>
+                        <div class="faq-answer"><div class="faq-answer-inner">没有特别的唇部护理，但<b>睡前会涂润唇膏</b>，这是在High End提到过的！
+                            在High End上传的润唇膏种类有“<span class="notranslate">La Bruket润唇膏、Himalaya、Le Labo、Chanel、Neutrogena Daily、Nutsgerin</span>”，也可以在图片标签页中查看。</div></div>
                     </div>
                     <div class="faq-item">
                         <div class="faq-question" onclick="toggleFAQ(this)">
                             <span>Q. 停车票故事是什么？</span>
                             <i class="fa-solid fa-chevron-down"></i>
                         </div>
-                        <div class="faq-answer">去上钢琴课时，为了停车需要在3点抢停车票，但他总是忘记这件事，于是拜托<span class="notranslate">좐걸（周安girl）</span>们提醒他不要忘记的事件（？）。</div>
+                        <div class="faq-answer"><div class="faq-answer-inner">去上钢琴课时，为了停车需要在3点抢停车票，但他总是忘记这件事，于是拜托<span class="notranslate">좐걸（周安girl）</span>们提醒他不要忘记的事件（？）。</div></div>
                     </div>
                     <div class="faq-item">
                         <div class="faq-question" onclick="toggleFAQ(this)">
                             <span>Q. 想知道戒指尺寸！</span>
                             <i class="fa-solid fa-chevron-down"></i>
                         </div>
-                        <div class="faq-answer"><b>10~11号</b>。
-                        （以26.10.27回复为准）→ 左手无名指11号（5.3cm），拇指17号</div>
+                        <div class="faq-answer"><div class="faq-answer-inner"><b>10~11号</b>。
+                        （以26.10.27回复为准）→ 左手无名指11号（5.3cm），拇指17号</div></div>
                     </div>
                     <div class="faq-item">
                         <div class="faq-question" onclick="toggleFAQ(this)">
                             <span>Q. “<span class="notranslate">이주앙（李周昂）</span>”事件是什么？</span>
                             <i class="fa-solid fa-chevron-down"></i>
                         </div>
-                        <div class="faq-answer">把High End名字从<span class="notranslate">이주안（李周安）</span>改成<span class="notranslate">이좐（李周安/좐）</span>nim后被抢走了名字，变成了<span class="notranslate">이주앙（李周昂）</span>的事件。
-                        通过公司向High End相关人士请求后，好不容易才改回<span class="notranslate">이주안（李周安）</span>。</div>
+                        <div class="faq-answer"><div class="faq-answer-inner">把High End名字从<span class="notranslate">이주안（李周安）</span>改成<span class="notranslate">이좐（李周安/좐）</span>nim后被抢走了名字，变成了<span class="notranslate">이주앙（李周昂）</span>的事件。
+                        通过公司向High End相关人士请求后，好不容易才改回<span class="notranslate">이주안（李周安）</span>。</div></div>
                     </div>
                     <div class="faq-item">
                         <div class="faq-question" onclick="toggleFAQ(this)">
                             <span>Q. 好奇正在使用的加湿器！</span>
                             <i class="fa-solid fa-chevron-down"></i>
                         </div>
-                        <div class="faq-answer">AirMade 加热式自动清洗 The Great 加湿器 2.0。</div>
+                        <div class="faq-answer"><div class="faq-answer-inner">AirMade 加热式自动清洗 The Great 加湿器 2.0。</div></div>
                     </div>
                     
                 </div>
@@ -1088,7 +1306,7 @@
                 </p>
                 <div class="gallery-grid">
                     <div class="photo-card" style="background: rgba(255, 255, 255, 0.03); border: 1px solid var(--border-color); border-radius: 12px; overflow: hidden; display: flex; flex-direction: column;">
-                        <img src="photo1.jpg" alt="周安 崇拜" style="width: 100%; height: 300px; object-fit: cover; display: block;" onerror="this.onerror=null; this.src='profile.jpg';">
+                        <img src="photo1.jpg" alt="周安 崇拜" loading="lazy" decoding="async" style="width: 100%; height: 300px; object-fit: cover; display: block;" onerror="this.onerror=null; this.src='profile.jpg';">
                         <div style="padding: 0.8rem; display: flex; justify-content: space-between; align-items: center; background: rgba(0,0,0,0.2);">
                             <span style="font-size: 0.82rem; color: var(--text-muted);" class="notranslate">주안 추앙（周安 崇拜）</span>
                             <a href="photo1.jpg" download="주안추앙.jpg" class="video-btn" style="padding: 5px 12px; font-size: 0.8rem; background: var(--accent-green); color: #000; font-weight: 700; text-decoration: none; border-radius: 6px;">
@@ -1098,7 +1316,7 @@
                     </div>
                     
                     <div class="photo-card" style="background: rgba(255, 255, 255, 0.03); border: 1px solid var(--border-color); border-radius: 12px; overflow: hidden; display: flex; flex-direction: column;">
-                        <img src="photo2.jpg" alt="哎呀 风" style="width: 100%; height: 300px; object-fit: cover; display: block;" onerror="this.onerror=null; this.src='profile.jpg';">
+                        <img src="photo2.jpg" alt="哎呀 风" loading="lazy" decoding="async" style="width: 100%; height: 300px; object-fit: cover; display: block;" onerror="this.onerror=null; this.src='profile.jpg';">
                         <div style="padding: 0.8rem; display: flex; justify-content: space-between; align-items: center; background: rgba(0,0,0,0.2);">
                             <span style="font-size: 0.82rem; color: var(--text-muted);">哎呀 风</span>
                             <a href="photo2.jpg" download="어이쿠 바람.jpg" class="video-btn" style="padding: 5px 12px; font-size: 0.8rem; background: var(--accent-green); color: #000; font-weight: 700; text-decoration: none; border-radius: 6px;">
@@ -1108,7 +1326,7 @@
                     </div>
                     
                     <div class="photo-card" style="background: rgba(255, 255, 255, 0.03); border: 1px solid var(--border-color); border-radius: 12px; overflow: hidden; display: flex; flex-direction: column;">
-                        <img src="photo3.jpeg" alt="润唇膏合集" style="width: 100%; height: 300px; object-fit: cover; display: block;" onerror="this.onerror=null; this.src='profile.jpg';">
+                        <img src="photo3.jpeg" alt="润唇膏合集" loading="lazy" decoding="async" style="width: 100%; height: 300px; object-fit: cover; display: block;" onerror="this.onerror=null; this.src='profile.jpg';">
                         <div style="padding: 0.8rem; display: flex; justify-content: space-between; align-items: center; background: rgba(0,0,0,0.2);">
                             <span style="font-size: 0.82rem; color: var(--text-muted);">润唇膏合集</span>
                             <a href="photo3.jpeg" download="립밤 모음집.jpg" class="video-btn" style="padding: 5px 12px; font-size: 0.8rem; background: var(--accent-green); color: #000; font-weight: 700; text-decoration: none; border-radius: 6px;">
@@ -1309,6 +1527,20 @@
         <p>有空就会一点点更新...👀</p>
     </footer>
     <script>
+        // 给表格每一格写上列名，手机端卡片布局会把它显示在左边
+        (function labelTableCells() {
+            document.querySelectorAll('.table-container').forEach(container => {
+                const table = container.querySelector('table');
+                if (!table) return;
+                const heads = Array.from(table.querySelectorAll('thead th')).map(th => th.textContent.trim());
+                table.querySelectorAll('tbody tr').forEach(row => {
+                    Array.from(row.children).forEach((cell, index) => {
+                        cell.setAttribute('data-label', heads[index] || '');
+                    });
+                });
+            });
+        })();
+
         // 标签切换函数
         function switchTab(tabId, btnElement) {
             const contents = document.querySelectorAll('.tab-content');
@@ -1317,33 +1549,40 @@
             buttons.forEach(btn => btn.classList.remove('active'));
             document.getElementById(tabId).classList.add('active');
             btnElement.classList.add('active');
+            btnElement.scrollIntoView({ block: 'nearest', inline: 'center', behavior: 'smooth' });
         }
-        // FAQ手风琴切换
+        // FAQ 手风琴：展开高度完全交给 CSS（grid 0fr → 1fr），
+        // 不依赖 JS 量像素，桌面/手机重排后都不会被截断
         function toggleFAQ(element) {
-            const faqItem = element.parentElement;
-            faqItem.classList.toggle('open');
+            element.parentElement.classList.toggle('open');
         }
+
         // FAQ实时关键词搜索
+        let faqSearchFrame = null;
         function filterFAQ() {
-            const input = document.getElementById('faqSearch');
-            const filter = input.value.toLowerCase();
-            const faqList = document.getElementById('faqList');
-            const items = faqList.getElementsByClassName('faq-item');
-            for (let i = 0; i < items.length; i++) {
-                const question = items[i].querySelector('.faq-question span').innerText;
-                const answer = items[i].querySelector('.faq-answer').innerText;
-                if (question.toLowerCase().indexOf(filter) > -1 || answer.toLowerCase().indexOf(filter) > -1) {
-                    items[i].style.display = "";
-                } else {
-                    items[i].style.display = "none";
+            if (faqSearchFrame) return;
+            faqSearchFrame = requestAnimationFrame(() => {
+                faqSearchFrame = null;
+                const input = document.getElementById('faqSearch');
+                const filter = input.value.toLowerCase();
+                const faqList = document.getElementById('faqList');
+                const items = faqList.getElementsByClassName('faq-item');
+                for (let i = 0; i < items.length; i++) {
+                    const question = items[i].querySelector('.faq-question span').innerText;
+                    const answer = items[i].querySelector('.faq-answer').innerText;
+                    if (question.toLowerCase().indexOf(filter) > -1 || answer.toLowerCase().indexOf(filter) > -1) {
+                        items[i].style.display = "";
+                    } else {
+                        items[i].style.display = "none";
+                    }
                 }
-            }
+            });
         }
     </script>
     <!-- 首次访问提示弹窗 -->
-    <div id="noticeModal">
+    <div id="noticeModal" role="dialog" aria-modal="true" aria-labelledby="noticeTitle">
         <div class="notice-box">
-            <h2>🙇🏻‍♀️ 通知！🙇🏻‍♀️</h2>
+            <h2 id="noticeTitle">🙇🏻‍♀️ 通知！🙇🏻‍♀️</h2>
             <p>
                 <br>你好！我是制作李周安指南的<span class="notranslate">좐걸（周安girl）</span>。<br>
                 不少<span class="notranslate">좐걸（周安girl）</span>好像都在参考这份指南！<br>
@@ -1360,17 +1599,18 @@
     </div>
                 
     <!-- 意见发送按钮 -->
-    <button id="feedbackButton" type="button">
+    <button id="feedbackButton" type="button" aria-label="发送意见">
         <i class="fa-solid fa-comment-dots"></i>
     </button>
     <!-- 意见填写窗口 -->
-    <div id="feedbackModal">
+    <div id="feedbackModal" role="dialog" aria-modal="true" aria-labelledby="feedbackTitle">
         <div class="feedback-box">
-            <h3>💌 意见发送</h3>
+            <h3 id="feedbackTitle">💌 意见发送</h3>
             <p>请自由留下对High End指南的意见或建议。</p>
             <textarea
                 id="feedbackMessage"
                 placeholder="请输入意见。"
+                maxlength="2000"
             ></textarea>
             <p id="feedbackStatus"></p>
             <div class="feedback-actions">
@@ -1380,26 +1620,135 @@
             
         </div>
     </div>
+    <!-- 新版本提示 -->
+    <div id="updateToast" role="status">
+        <span>指南已更新</span>
+        <button id="updateReload" type="button">刷新</button>
+        <button id="updateDismiss" type="button" aria-label="关闭">✕</button>
+    </div>
     <script>
-        // Google Apps Script 地址
-        const feedbackEndpoint = "https://script.google.com/macros/s/AKfycbzkYfKLXX7b73I3ey0VYgODtDnCp8ZdEnBg0bmV5duN0iRTuA2giJsMLUqOI717c5SFlQ/exec";
+        /*
+         * 意见接收配置
+         * mode:
+         *   "email"   → FormSubmit 邮箱转发（默认，免注册，第一次提交后去邮箱点确认链接）
+         *   "webhook" → 飞书 / 企业微信群机器人（国内手机秒收）
+         *   "gas"     → Google Apps Script（原来的方案，需自己部署）
+         * 只有 email 模式需要 emailEndpoint 里的邮箱与下方 email 一致。
+         */
+        const FEEDBACK_CONFIG = {
+            mode: "email",
+            emailEndpoint: "https://formsubmit.co/ajax/iampenguin1024@outlook.com",
+            email: "iampenguin1024@outlook.com",
+            // webhook 模式：飞书填 https://open.feishu.cn/open-apis/bot/v2/hook/xxx（webhookType: "feishu"）
+            // 企业微信填 https://qyapi.weixin.qq.com/cgi-bin/webhook/send?key=xxx（webhookType: "wecom"）
+            webhook: "",
+            webhookType: "feishu",
+            gasEndpoint: ""
+        };
+
         const feedbackButton = document.getElementById("feedbackButton");
         const feedbackModal = document.getElementById("feedbackModal");
         const feedbackMessage = document.getElementById("feedbackMessage");
         const feedbackClose = document.getElementById("feedbackClose");
         const feedbackSubmit = document.getElementById("feedbackSubmit");
         const feedbackStatus = document.getElementById("feedbackStatus");
-        feedbackButton.addEventListener("click", () => {
-            feedbackModal.style.display = "flex";
-        });
-        feedbackClose.addEventListener("click", () => {
-            feedbackModal.style.display = "none";
-        });
-        feedbackModal.addEventListener("click", (event) => {
-            if (event.target === feedbackModal) {
-                feedbackModal.style.display = "none";
+        const noticeModal = document.getElementById("noticeModal");
+        const noticeClose = document.getElementById("noticeClose");
+        const noticeTodayClose = document.getElementById("noticeTodayClose");
+
+        function openModal(el) {
+            el.style.display = "flex";
+            document.body.classList.add("modal-open");
+        }
+        function closeModal(el) {
+            el.style.display = "none";
+            if (feedbackModal.style.display !== "flex" && noticeModal.style.display !== "flex") {
+                document.body.classList.remove("modal-open");
             }
+        }
+
+        feedbackButton.addEventListener("click", () => openModal(feedbackModal));
+        feedbackClose.addEventListener("click", () => closeModal(feedbackModal));
+        noticeClose.addEventListener("click", () => closeModal(noticeModal));
+        noticeTodayClose.addEventListener("click", () => {
+            storeSet("noticeClosedDate", today());
+            closeModal(noticeModal);
         });
+
+        feedbackModal.addEventListener("click", (event) => {
+            if (event.target === feedbackModal) closeModal(feedbackModal);
+        });
+        noticeModal.addEventListener("click", (event) => {
+            if (event.target === noticeModal) closeModal(noticeModal);
+        });
+        document.addEventListener("keydown", (event) => {
+            if (event.key !== "Escape") return;
+            if (feedbackModal.style.display === "flex") closeModal(feedbackModal);
+            if (noticeModal.style.display === "flex") closeModal(noticeModal);
+        });
+
+        function today() {
+            return new Date().toLocaleDateString("sv-SE");
+        }
+
+        // 隐私模式 / 禁用存储时不让脚本报错
+        function storeGet(key) {
+            try { return localStorage.getItem(key); } catch (e) { return null; }
+        }
+        function storeSet(key, value) {
+            try { localStorage.setItem(key, value); } catch (e) {}
+        }
+
+        function mailtoLink(message) {
+            const subject = encodeURIComponent("李周安指南 · 意见反馈");
+            const body = encodeURIComponent(message);
+            return "mailto:" + FEEDBACK_CONFIG.email + "?subject=" + subject + "&body=" + body;
+        }
+
+        async function sendFeedback(message) {
+            const cfg = FEEDBACK_CONFIG;
+            if (cfg.mode === "webhook" && cfg.webhook) {
+                const payload = cfg.webhookType === "wecom"
+                    ? { msgtype: "text", text: { content: "【李周安指南】意见反馈：\n" + message } }
+                    : { msg_type: "text", content: { text: "【李周安指南】意见反馈：\n" + message } };
+                const hookRes = await fetch(cfg.webhook, {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json;charset=UTF-8" },
+                    body: JSON.stringify(payload)
+                });
+                const hookData = await hookRes.json().catch(() => ({}));
+                const hookOk = hookRes.ok && (hookData.code === 0 || hookData.errcode === 0 || hookData.StatusCode === 0);
+                if (!hookOk) throw new Error(hookData.msg || hookData.errmsg || "webhook error");
+                return { ok: true };
+            }
+            if (cfg.mode === "gas" && cfg.gasEndpoint) {
+                await fetch(cfg.gasEndpoint, {
+                    method: "POST",
+                    mode: "no-cors",
+                    headers: { "Content-Type": "application/x-www-form-urlencoded;charset=UTF-8" },
+                    body: new URLSearchParams({ message: message })
+                });
+                return { ok: true };
+            }
+            const res = await fetch(cfg.emailEndpoint, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Accept": "application/json"
+                },
+                body: JSON.stringify({
+                    message: message,
+                    _subject: "李周安指南 · 意见反馈",
+                    _template: "table",
+                    _captcha: "false",
+                    _honey: ""
+                })
+            });
+            const data = await res.json().catch(() => ({}));
+            const ok = res.ok && (data.success === true || data.success === "true");
+            return { ok: ok, error: ok ? "" : (data.message || "HTTP " + res.status) };
+        }
+
         feedbackSubmit.addEventListener("click", async () => {
             const message = feedbackMessage.value.trim();
             if (!message) {
@@ -1409,45 +1758,79 @@
             feedbackSubmit.disabled = true;
             feedbackStatus.textContent = "正在发送。";
             try {
-                await fetch(feedbackEndpoint, {
-                    method: "POST",
-                    mode: "no-cors",
-                    headers: {
-                        "Content-Type": "application/x-www-form-urlencoded;charset=UTF-8"
-                    },
-                    body: new URLSearchParams({
-                        message: message
-                    })
-                });
-                feedbackStatus.textContent = "意见发送请求已提交！";
-                feedbackMessage.value = "";
+                const result = await sendFeedback(message);
+                if (result.ok) {
+                    feedbackStatus.textContent = "意见发送请求已提交！";
+                    feedbackMessage.value = "";
+                } else {
+                    throw new Error(result.error || "send failed");
+                }
             } catch (error) {
-                feedbackStatus.textContent = "发送失败，请重试。";
                 console.error("意见发送错误:", error);
+                feedbackStatus.textContent = "发送失败，请重试。";
+                const link = document.createElement("a");
+                link.href = mailtoLink(message);
+                link.textContent = " 或点这里用邮件发送";
+                feedbackStatus.appendChild(link);
             } finally {
                 feedbackSubmit.disabled = false;
             }
         });
+
         // 首次访问提示弹窗
-        const noticeModal = document.getElementById("noticeModal");
-        const noticeClose = document.getElementById("noticeClose");
-        const noticeTodayClose = document.getElementById("noticeTodayClose");
-        
-        const today = new Date().toLocaleDateString("sv-SE");
-        const closedDate = localStorage.getItem("noticeClosedDate");
-        
-        if (closedDate !== today) {
+        const closedDate = storeGet("noticeClosedDate");
+        if (closedDate !== today()) {
             noticeModal.style.display = "flex";
+            document.body.classList.add("modal-open");
         }
-        
-        noticeClose.addEventListener("click", () => {
-            noticeModal.style.display = "none";
-        });
-        
-        noticeTodayClose.addEventListener("click", () => {
-            localStorage.setItem("noticeClosedDate", today);
-            noticeModal.style.display = "none";
-        });
+
+        /*
+         * 新版本检查：GitHub Pages 会把页面缓存约 10 分钟。
+         * 这里在后台用 no-store 拉一份最新的 index.html，和上次的指纹比对，
+         * 有变化就提示刷新（刷新时带上版本参数，绕过浏览器缓存）。
+         */
+        (function checkForUpdate() {
+            if (location.protocol !== "http:" && location.protocol !== "https:") return;
+            if (!window.fetch || !window.crypto || !crypto.subtle) return;
+            const conn = navigator.connection;
+            if (conn && conn.saveData) return;
+
+            const LAST_KEY = "guide.checkAt";
+            const HASH_KEY = "guide.hash";
+            const last = Number(storeGet(LAST_KEY) || 0);
+            if (Date.now() - last < 5 * 60 * 1000) return;
+            storeSet(LAST_KEY, String(Date.now()));
+
+            const run = () => {
+                fetch(location.pathname + "?_=" + Date.now(), {
+                    cache: "no-store",
+                    headers: { "Pragma": "no-cache", "Cache-Control": "no-cache" }
+                }).then(res => res.ok ? res.text() : null).then(async (text) => {
+                    if (!text) return;
+                    const buf = new TextEncoder().encode(text);
+                    const digest = await crypto.subtle.digest("SHA-256", buf);
+                    const hash = Array.from(new Uint8Array(digest)).map(b => b.toString(16).padStart(2, "0")).join("");
+                    const prev = storeGet(HASH_KEY);
+                    storeSet(HASH_KEY, hash);
+                    if (!prev || prev === hash) return;
+                    const toast = document.getElementById("updateToast");
+                    toast.classList.add("show");
+                    document.getElementById("updateReload").addEventListener("click", () => {
+                        const url = new URL(location.href);
+                        url.searchParams.set("v", Date.now().toString());
+                        location.replace(url.toString());
+                    });
+                    const dismiss = document.getElementById("updateDismiss");
+                    dismiss.addEventListener("click", () => toast.classList.remove("show"));
+                    setTimeout(() => toast.classList.remove("show"), 20000);
+                }).catch(() => {});
+            };
+            if ("requestIdleCallback" in window) {
+                requestIdleCallback(run, { timeout: 3000 });
+            } else {
+                setTimeout(run, 1500);
+            }
+        })();
     </script>
         
 </body>
