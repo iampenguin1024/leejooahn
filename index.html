@@ -10,10 +10,7 @@
     <meta http-equiv="Pragma" content="no-cache">
     <meta http-equiv="Expires" content="0">
     <title>李周安 HIAND 指南</title>
-    <!-- Google Fonts & Font Awesome Icons -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700;800&family=Pretendard:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- Font Awesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
@@ -41,8 +38,13 @@
             scroll-behavior: smooth;
         }
         /* 字体只放在 body 上靠继承，不要写到 *::before，否则会把 Font Awesome 的图标字体覆盖掉 */
+        /*
+         * 字体：只用各系统自带的中文 UI 字体，取字逻辑和微信/抖音这类常用 App 一致。
+         * 不加载 Google Fonts —— 国内基本连不上，加载失败时会退回手机默认字体，
+         * 装了第三方字体库的用户就会看到完全不同的字形（甚至缺字）。
+         */
         body {
-            font-family: 'Pretendard', 'Noto Sans KR', sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, "HarmonyOS Sans SC", "HarmonyOS Sans", "HONOR Sans", "MiSans", "OPPO Sans", "vivo Sans", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "微软雅黑", "Noto Sans SC", "Noto Sans CJK SC", "Source Han Sans SC", "Noto Sans KR", "Apple SD Gothic Neo", "Malgun Gothic", Arial, sans-serif;
             -webkit-font-smoothing: antialiased;
             -webkit-tap-highlight-color: transparent;
             background-color: var(--bg-dark);
@@ -443,6 +445,8 @@
         .faq-question span {
             min-width: 0;
             overflow-wrap: anywhere;
+            /* 中文问题要能按字换行，否则会整句被挤到下一行，留下一个孤零零的「Q.」 */
+            word-break: normal;
         }
         .faq-question i {
             color: var(--text-muted);
