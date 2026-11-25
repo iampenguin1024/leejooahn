@@ -978,6 +978,13 @@
             color: #666666;
             font-size: 15px;
             line-height: 1.8;
+            text-align: left;
+        }
+        #noticeModal p a {
+            color: #059669;
+            text-decoration: underline;
+            overflow-wrap: anywhere;
+            word-break: normal;
         }
         
         /* 弹窗按钮区域 */
@@ -1097,7 +1104,7 @@
             <p>1996.01.24 | 演员 | <span class="notranslate">ENFP</span></p>
             
             <div class="nicknames notranslate">
-                <span class="tag">#좐득이（周安粉）</span>
+                <span class="tag">#좐망대（周安展望台）</span>
                 <span class="tag">#좐걸（周安girl）</span>
                 <span class="tag">#공길이（孔吉）</span>
                 <span class="tag">#한태승（韩泰胜）</span>
@@ -1110,7 +1117,7 @@
                 <i class="fa-solid fa-user"></i> 演员简介
             </button>
             <button class="tab-btn" onclick="switchTab('faq', this)">
-                <i class="fa-solid fa-comments"></i> High End 问答
+                <i class="fa-solid fa-comments"></i> HIAND 问答
             </button>
             <button class="tab-btn" onclick="switchTab('photos', this)">
                 <i class="fa-solid fa-image"></i> 照片下载
@@ -1159,6 +1166,10 @@
                     <div class="info-box">
                         <div class="info-label"><i class="fa-solid fa-film"></i> 出道作品</div>
                         <div class="info-value">2018年 <span class="notranslate">JTBC《SKY Castle 天空之城》</span>（饰 李东民）</div>
+                    </div>
+                    <div class="info-box">
+                        <div class="info-label"><i class="fa-solid fa-calendar-days"></i> 出道日</div>
+                        <div class="info-value">2018年11月23日</div>
                     </div>
                     <div class="info-box">
                         <div class="info-label"><i class="fa-solid fa-location-dot"></i> 故乡</div>
@@ -1247,15 +1258,15 @@
                 </div>
             </div>
         </div>
-        <!-- 标签页 2: High End 问答 -->
+        <!-- 标签页 2: HIAND 问答 -->
         <div id="faq" class="tab-content">
             <div class="special-card">
                 <h3 class="tip-title">
                     <i class="fa-solid fa-bell"></i>
-                    <span class="tip-title-text">High End 核心文化：“<span class="notranslate">주안시（周安时）</span>”是什么？</span>
+                    <span class="tip-title-text">HIAND 核心文化：“<span class="notranslate">주안시（周安时）</span>”是什么？</span>
                 </h3>
                 <p class="tip-text">
-                    这是配合李周安演员生日<strong>1月24日</strong>，在周五、六、日<strong>凌晨1点24分</strong>通过High End发送“<span class="notranslate">주안시（周安时）</span>”消息的粉丝参与文化！
+                    这是配合李周安演员生日<strong>1月24日</strong>，在周五、六、日<strong>凌晨1点24分</strong>通过HIAND发送“<span class="notranslate">주안시（周安时）</span>”消息的粉丝参与文化！
                 </p>
                 <div class="tip-note">
                     💡 <strong><span class="notranslate">주안시（周安时）</span>小贴士：</strong>演员本人也会亲自参与，并由演员排名和公布！发送消息时加上自己的装饰或标记，方便本人确认！<br>（即使没进排名，演员偶尔也会颁发装饰奖🎁）<br><br>
@@ -1277,8 +1288,7 @@
                             <span>Q. 有字数限制或消息发送次数限制吗？</span>
                             <i class="fa-solid fa-chevron-down"></i>
                         </div>
-                        <div class="faq-answer"><div class="faq-answer-inner">一次最多可连续发送7条，存在字数限制。<br>
-                        字数会随着加入天数增加！</div></div>
+                        <div class="faq-answer"><div class="faq-answer-inner">一次最多可连续发送7条，存在字数限制。<br>字数会随着加入天数增加！<br>• 1~49天：50字<br>• 50~99天：100字<br>• 100~199天：150字<br>• 200~299天：200字<br>• 300~399天：300字<br>• 400~499天：400字<br>• 500天以上：500字</div></div>
                     </div>
                     <div class="faq-item">
                         <div class="faq-question" onclick="toggleFAQ(this)">
@@ -1303,8 +1313,7 @@
                             <span>Q. 有官方粉丝昵称（爱称）吗？</span>
                             <i class="fa-solid fa-chevron-down"></i>
                         </div>
-                        <div class="faq-answer"><div class="faq-answer-inner">虽然还没有正式确定，但目前粉丝被称为<b>“<span class="notranslate">좐득이（周安粉）</span>”</b>或<b>“<span class="notranslate">좐걸（周安girl）</span>”</b>！
-（顺便一提，以前拍摄结束后他自己想过并提议过“<span class="notranslate">D-14（디폴틴）</span>”这个名字 😄）</div></div>
+                        <div class="faq-answer"><div class="faq-answer-inner">2026年11月24日起，官方粉丝名正式确定为<b>“<span class="notranslate">좐망대（周安展望台）</span>”</b>！写出来是<span class="notranslate">좐망대</span>，念起来介于<span class="notranslate">좐망대</span>和<span class="notranslate">잔망대</span>之间~<br>在官方粉丝名确定之前，粉丝们被称为<b>“<span class="notranslate">좐득이（周安粉）</span>”</b>或<b>“<span class="notranslate">좐걸（周安girl）</span>”</b>！<br>（顺带一提，以前拍摄结束后他自己想过并提议过“<span class="notranslate">D-14（디폴틴）</span>”这个名字 😄）</div></div>
                     </div>
                     <div class="faq-item">
                         <div class="faq-question" onclick="toggleFAQ(this)">
@@ -1379,15 +1388,15 @@
                             <span>Q. 能分享一下唇部护理方法吗？</span>
                             <i class="fa-solid fa-chevron-down"></i>
                         </div>
-                        <div class="faq-answer"><div class="faq-answer-inner">没有特别的唇部护理，但<b>睡前会涂润唇膏</b>，这是在High End提到过的！
-                            在High End上传的润唇膏种类有“<span class="notranslate">La Bruket润唇膏、Himalaya、Le Labo、Chanel、Neutrogena Daily、Nutsgerin</span>”，也可以在图片标签页中查看。</div></div>
+                        <div class="faq-answer"><div class="faq-answer-inner">没有特别的唇部护理，但<b>睡前会涂润唇膏</b>，这是在HIAND提到过的！
+                            在HIAND上传的润唇膏种类有“<span class="notranslate">La Bruket润唇膏、Himalaya、Le Labo、Chanel、Neutrogena Daily、Nutsgerin</span>”，也可以在图片标签页中查看。</div></div>
                     </div>
                     <div class="faq-item">
                         <div class="faq-question" onclick="toggleFAQ(this)">
-                            <span>Q. 停车票故事是什么？</span>
+                            <span>Q. 停车券故事是什么？</span>
                             <i class="fa-solid fa-chevron-down"></i>
                         </div>
-                        <div class="faq-answer"><div class="faq-answer-inner">去上钢琴课时，为了停车需要在3点抢停车票，但他总是忘记这件事，于是拜托<span class="notranslate">좐걸（周安girl）</span>们提醒他不要忘记的事件（？）。</div></div>
+                        <div class="faq-answer"><div class="faq-answer-inner">去上钢琴课时，为了停车需要在3点抢停车券，但他总是忘记这件事，于是拜托<span class="notranslate">좐망대（周安展望台）</span>们提醒他不要忘记的事件（？）。</div></div>
                     </div>
                     <div class="faq-item">
                         <div class="faq-question" onclick="toggleFAQ(this)">
@@ -1402,8 +1411,8 @@
                             <span>Q. “<span class="notranslate">이주앙（李周昂）</span>”事件是什么？</span>
                             <i class="fa-solid fa-chevron-down"></i>
                         </div>
-                        <div class="faq-answer"><div class="faq-answer-inner">把High End名字从<span class="notranslate">이주안（李周安）</span>改成<span class="notranslate">이좐（李周安/좐）</span>nim后被抢走了名字，变成了<span class="notranslate">이주앙（李周昂）</span>的事件。
-                        通过公司向High End相关人士请求后，好不容易才改回<span class="notranslate">이주안（李周安）</span>。</div></div>
+                        <div class="faq-answer"><div class="faq-answer-inner">把HIAND名字从<span class="notranslate">이주안（李周安）</span>改成<span class="notranslate">이좐（李周安/좐）</span>nim后被抢走了名字，变成了<span class="notranslate">이주앙（李周昂）</span>的事件。
+                        通过公司向HIAND相关人士请求后，好不容易才改回<span class="notranslate">이주안（李周安）</span>。</div></div>
                     </div>
                     <div class="faq-item">
                         <div class="faq-question" onclick="toggleFAQ(this)">
@@ -1411,6 +1420,13 @@
                             <i class="fa-solid fa-chevron-down"></i>
                         </div>
                         <div class="faq-answer"><div class="faq-answer-inner">AirMade 加热式自动清洗 The Great 加湿器 2.0。</div></div>
+                    </div>
+                    <div class="faq-item">
+                        <div class="faq-question" onclick="toggleFAQ(this)">
+                            <span>Q. Instagram 账号为什么取名叫 in_2_weeks？</span>
+                            <i class="fa-solid fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer"><div class="faq-answer-inner">“<span class="notranslate">2주안（2周安）</span>”其实来自 <span class="notranslate">within 2 weeks</span>，但我的账号名是 <span class="notranslate">in_2_weeks</span>。各位 <span class="notranslate">with in_2_weeks</span>、粉丝们 <span class="notranslate">in 2 weeks</span>，大家一起才凑成了“<span class="notranslate">2주안</span>”——当时其实也没太想明白，就凭直觉这么定了，之后再给它赋予了意义。</div></div>
                     </div>
                     
                 </div>
@@ -1424,7 +1440,7 @@
                     <h2>照片库</h2>
                 </div>
                 <p style="color: var(--text-muted); font-size: 0.88rem; margin-bottom: 0.8rem;">
-                    High End图片上传空间。
+                    HIAND图片上传空间。
                 </p>
                 <div class="gallery-grid">
                     <figure class="photo-card">
@@ -1560,10 +1576,24 @@
                         </div>
                     </div>
                     <div class="video-card">
-                        <div class="video-title"><i class="fa-brands fa-youtube"></i> 2. 50问50答 <span class="notranslate">Interview</span></div>
+                        <div class="video-title"><i class="fa-brands fa-youtube"></i> 2. 官方粉丝名公开</div>
+                        <div class="video-links">
+                            <a href="https://youtu.be/PUjXVQAKvIY?si=BZgRzogdTlDbRXCr" target="_blank" class="video-btn">
+                                <i class="fa-solid fa-play"></i> 官方粉丝名公开视频</a>
+                        </div>
+                    </div>
+                    <div class="video-card">
+                        <div class="video-title"><i class="fa-brands fa-youtube"></i> 3. 50问50答 <span class="notranslate">Interview</span></div>
                         <div class="video-links">
                             <a href="https://youtu.be/ZSYK7FRd5bo?si=UL1qn3KgN-iLj8Wi" target="_blank" class="video-btn">
                                 <i class="fa-solid fa-play"></i> 观看采访</a>
+                        </div>
+                    </div>
+                    <div class="video-card">
+                        <div class="video-title"><i class="fa-brands fa-youtube"></i> 4. 随便问吧</div>
+                        <div class="video-links">
+                            <a href="https://youtu.be/9Zfw4znAwjo?si=SFZq0BaHQGuX704_" target="_blank" class="video-btn">
+                                <i class="fa-solid fa-play"></i> Q&amp;A 视频</a>
                         </div>
                     </div>
                 </div>
@@ -1644,6 +1674,15 @@
                 
                 <div class="video-card-list">
                     <div class="video-card">
+                        <div class="video-title"><i class="fa-solid fa-image" style="color: #eb924f;"></i> <span class="notranslate">COSMOPOLITAN</span> 26.11.18</div>
+                        <div class="video-links">
+                            <a href="https://www.cosmopolitan.co.kr/article/1913206" target="_blank" class="video-btn">
+                                <i class="fa-solid fa-link"></i> 画报</a>
+                            <a href="https://www.cosmopolitan.co.kr/article/1913160" target="_blank" class="video-btn">
+                                <i class="fa-solid fa-link"></i> 采访</a>
+                        </div>
+                    </div>
+                    <div class="video-card">
                         <div class="video-title"><i class="fa-solid fa-image" style="color: #eb924f;"></i> <span class="notranslate">SINGLES</span> 26.10.05</div>
                         <div class="video-links">
                             <a href="https://m.singleskorea.com/star/2026/10/721971" target="_blank" class="video-btn">
@@ -1718,12 +1757,11 @@
         <div class="notice-box">
             <h2 id="noticeTitle">🙇🏻‍♀️ 通知！🙇🏻‍♀️</h2>
             <p>
-                <br>你好！我是制作李周安指南的<span class="notranslate">좐걸（周安girl）</span>。<br>
-                不少<span class="notranslate">좐걸（周安girl）</span>好像都在参考这份指南！<br>
-                由于我目前日常比较忙碌，可能无法快速更新信息而有所遗漏，因此添加了<b>意见发送</b>功能。<br>
-                点击气泡按钮，随时告诉我们错误/需要补充的信息以及对指南的意见，我们确认后会进行修改和补充。<br>
-                <b>修改在每周一~周二进行！</b><br>
-                <br>感谢使用:) 祝你追星愉快😊
+                <br>你好！我是《李周安指南》<b>汉化版</b>的制作者，该指南原链接：<a href="https://guide-lovat-alpha.vercel.app/" target="_blank" rel="noopener noreferrer">https://guide-lovat-alpha.vercel.app/</a>，一切基于原指南进行汉化并稍作补充，此处感谢这位制作者老师授权。<br><br>
+                不少<span class="notranslate">좐망대（周安展望台）</span>好像都在参考这份指南！由于我平时信息同步可能有疏漏，所以加了<b>意见发送</b>功能——点右下角的气泡，把错误、缺漏或想补充的内容告诉我们，确认后我会尽快修正、补充。<br><br>
+                <b>更新固定在每周六~周日进行！</b><br><br>
+                另外，推荐内容目前保留的是 <span class="notranslate">YouTube</span> 视频（🪜）；为了方便中粉观看，后续也会补充国内平台的搬运视频。汉化版还在不断完善中，有更好的建议，同样欢迎通过气泡投稿。<br>
+                <br>感谢使用:) 祝你追星愉快 ~
             </p>
             <div class="notice-actions">
                 <button id="noticeClose">关闭</button>
@@ -1740,7 +1778,7 @@
     <div id="feedbackModal" role="dialog" aria-modal="true" aria-labelledby="feedbackTitle">
         <div class="feedback-box">
             <h3 id="feedbackTitle">💌 意见发送</h3>
-            <p>请自由留下对High End指南的意见或建议。</p>
+            <p>请自由留下对HIAND指南的意见或建议。</p>
             <textarea
                 id="feedbackMessage"
                 placeholder="请输入意见。"
